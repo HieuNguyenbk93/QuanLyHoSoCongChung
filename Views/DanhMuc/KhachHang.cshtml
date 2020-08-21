@@ -1,0 +1,261 @@
+﻿
+@{
+    ViewBag.Title = "KhachHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="khApp" ng-controller="khCtrl">
+    <div class="container">
+        <h2>Trang quản lý khách hàng</h2>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" id="button-addon3">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        <button class="btn btn-outline-secondary" type="button" ng-click="reload()">Tìm kiếm</button>
+                    </div>
+                    <input type="text" class="form-control" ng-model="strTen" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+                </div>
+            </div>
+        </div>
+        <div> Số khách hàng: {{countKhachHang}}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên khách hàng</th>
+                    <th scope="col">Tên cơ quan</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list_KhachHang">
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{item.TenKhachHang}}</td>
+                    <td>{{item.CoQuan}}</td>
+                    <td>{{item.SoDienThoai}}</td>
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
+                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" ng-show="ID_KhachHang == null">Thêm mới khách hàng</h5>
+                    <h5 class="modal-title" ng-show="ID_KhachHang != null">Sửa khách hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Tên khách hàng<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Ten" ng-model="Ten_KhachHang" tabindex="2">
+                            <label class="help-block" id="lblTen" style="display: none"></label>
+                        </div>
+                        <div class="profile-info-name">Cơ quan<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Ten" ng-model="CoQuan" tabindex="2">
+                            <label class="help-block" id="lblTen" style="display: none"></label>
+                        </div>
+                        <div class="profile-info-name">Số điện thoại khách hàng<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Sdt" ng-model="Sdt_KhachHang" tabindex="2">
+                            <label class="help-block" id="lblSdt" style="display: none"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_KhachHang()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa khách hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa khách hàng: <strong class="red">{{KhachHang.TenKhachHang}}</strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" ng-click="Delete_KhachHang()">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Asses/js/angular.min.js"></script>
+
+<script>
+        var myApp = angular.module('khApp', []);
+        myApp.controller('khCtrl', function ($scope, $q, $http, $timeout) {
+
+            $scope.strTen = "";
+            $scope.countKhachHang = 0;
+
+            $scope.KhachHang = {};
+            $scope.ID_KhachHang = 0;
+            $scope.Ten_KhachHang = "";
+            $scope.CoQuan = "";
+            $scope.Sdt_KhachHang = "";
+            $scope.NgayTao = "";
+
+            $scope.list_KhachHang = [];
+
+            var getInit = function () {
+                return $http({
+                    method: "POST",
+                    url: "/DanhMuc/Count_NhanVien",
+                    data: {
+                        DieuKien: 2,
+                    }
+                });
+            }
+
+            var getKhachHang = function () {
+                return $http({
+                    method: "GET",
+                    url: "/DanhMuc/Get_KhachHang",
+                    params: {
+                        pageSize: 1000,
+                        pageIndex: 1,
+                        strTen: $scope.strTen
+                    }
+                });
+            }
+
+            var init = function () {
+                getInit().then(function (res) {
+                    $scope.countKhachHang = res.data;
+                });
+
+                getKhachHang().then(function (res) {
+                    $scope.list_KhachHang = res.data;
+                    //console.log($scope.list_NhanVien);
+                });
+            }
+
+            init();
+
+            var clearData = function () {
+                $scope.Ten_KhachHang = "";
+                $scope.CoQuan = "";
+                $scope.Sdt_KhachHang = "";
+                $scope.KhachHang = {};
+            }
+
+            $scope.reload = function () {
+                $scope.ID_KhachHang = 0;
+                $scope.Ten_KhachHang = "";
+                $scope.CoQuan = "";
+                $scope.Sdt_KhachHang = "";
+                $scope.KhachHang = {};
+                init();
+            }
+
+            $scope.show = function (objPB) {
+                if (objPB.IDKhachHang != null) {
+                    //console.log("Sửa---");
+                    $scope.ID_KhachHang = objPB.IDKhachHang;
+                    $scope.Ten_KhachHang = objPB.TenKhachHang;
+                    $scope.CoQuan = objPB.CoQuan;
+                    $scope.Sdt_KhachHang = objPB.SoDienThoai;
+                }
+                else {
+                    $scope.ID_KhachHang = 0;
+                    $scope.Ten_KhachHang = "";
+                    $scope.CoQuan = "";
+                    $scope.Sdt_KhachHang = "";
+                }
+                //console.log($scope.ID_NhanVien);
+            }
+
+            $scope.Save_KhachHang = function () {
+                if ($scope.ID_KhachHang == 0 || $scope.ID_KhachHang == null) {
+                    $scope.KhachHang = {};
+                    $scope.KhachHang.TenKhachHang = $scope.Ten_KhachHang;
+                    $scope.KhachHang.CoQuan = $scope.CoQuan;
+                    $scope.KhachHang.SoDienThoai = $scope.Sdt_KhachHang;
+                    console.log($scope.KhachHang);
+                    $http({                                 // Thêm nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Insert_KhachHang",
+                        datatype: "json",
+                        data: JSON.stringify($scope.KhachHang),
+                    }).then(function (res) {
+                        $('#myModal').modal('hide');
+                        //alert(res.data);
+                        alert("Tạo mới thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+                else {
+                    //console.log("Sửa nhân viên");
+                    $scope.KhachHang = {};
+                    $scope.KhachHang.IDKhachHang = $scope.ID_KhachHang;
+                    $scope.KhachHang.TenKhachHang = $scope.Ten_KhachHang;
+                    $scope.KhachHang.CoQuan = $scope.CoQuan;
+                    $scope.KhachHang.SoDienThoai = $scope.Sdt_KhachHang;
+                    $http({                                 // Sửa thông tin nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Update_KhachHang",
+                        datatype: "json",
+                        data: JSON.stringify($scope.KhachHang),
+                    }).then(function (res) {
+                        //console.log(res.data);
+                        $('#myModal').modal('hide');
+                        alert("Sửa thành thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+            }
+
+            $scope.getID = function (objKhachHang) {
+                $scope.KhachHang.IDKhachHang = objKhachHang.IDKhachHang;
+                $scope.KhachHang.TenKhachHang = objKhachHang.TenKhachHang;
+                $scope.KhachHang.CoQuan = objKhachHang.CoQuan;
+                $scope.KhachHang.SoDienThoai = objKhachHang.SoDienThoai;
+            }
+
+            $scope.Delete_KhachHang = function () {
+                $http({
+                    method: "post",
+                    url: "/DanhMuc/Delete_KhachHang",
+                    datatype: "json",
+                    data: JSON.stringify($scope.KhachHang),
+                }).then(function (res) {
+                    $('#confirm-delete').modal('hide');
+                    alert("Xóa thành thành công!");
+                    clearData();
+                    init();
+                })
+            }
+
+        });
+</script>
+
+
+

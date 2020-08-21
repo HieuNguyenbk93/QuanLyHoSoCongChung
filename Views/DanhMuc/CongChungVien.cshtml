@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "CongChungVien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="ccvApp" ng-controller="ccvCtrl">
+    <div class="container">
+        <h2>Trang quản lý công chứng viên</h2>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" id="button-addon3">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        <button class="btn btn-outline-secondary" type="button" ng-click="reload()">Tìm kiếm</button>
+                    </div>
+                    <input type="text" class="form-control" ng-model="strTen" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+                </div>
+            </div>
+        </div>
+        <div> Số công chứng viên: {{countCongChungVien}}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Tên công chứng viên</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list_CongChungVien">
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{item.FullNameCCV}}</td>
+                    <td>{{item.SoDienThoai}}</td>
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
+                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" ng-show="ID_CongChungVien == null">Thêm mới công chứng viên</h5>
+                    <h5 class="modal-title" ng-show="ID_CongChungVien != null">Sửa công chứng viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Tên công chứng viên<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Ten" ng-model="Ten_CongChungVien" tabindex="2">
+                            <label class="help-block" id="lblTen" style="display: none"></label>
+                        </div>
+                        <div class="profile-info-name">Số điện thoại công chứng viên<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Sdt" ng-model="Sdt_CongChungVien" tabindex="2">
+                            <label class="help-block" id="lblSdt" style="display: none"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_CongChungVien()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa công chứng viên: <strong class="red">{{CongChungVien.FullNameNV}}</strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" ng-click="Delete_CongChungVien()">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Asses/js/angular.min.js"></script>
+
+<script>
+        var myApp = angular.module('ccvApp', []);
+        myApp.controller('ccvCtrl', function ($scope, $q, $http, $timeout) {
+
+            $scope.strTen = "";
+            $scope.countCongChungVien = 0;
+
+            $scope.CongChungVien = {};
+            $scope.ID_CongChungVien = 0;
+            $scope.Ten_CongChungVien = "";
+            $scope.Sdt_CongChungVien = "";
+            $scope.NgayTao = "";
+
+            $scope.list_CongChungVien = [];
+
+            var getInit = function () {
+                return $http({
+                    method: "POST",
+                    url: "/DanhMuc/Count_NhanVien",
+                    data: {
+                        DieuKien: 3,
+                    }
+                });
+            }
+
+            var getCongChungVien = function () {
+                return $http({
+                    method: "GET",
+                    url: "/DanhMuc/Get_CongChungVien",
+                    params: {
+                        pageSize: 1000,
+                        pageIndex: 1,
+                        strTen: $scope.strTen
+                    }
+                });
+            }
+
+            var init = function () {
+                getInit().then(function (res) {
+                    $scope.countCongChungVien = res.data;
+                });
+
+                getCongChungVien().then(function (res) {
+                    $scope.list_CongChungVien = res.data;
+                    //console.log($scope.list_NhanVien);
+                });
+            }
+
+            init();
+
+            var clearData = function () {
+                $scope.Ten_CongChungVien = "";
+                $scope.Sdt_CongChungVien = "";
+                $scope.CongChungVien = {};
+            }
+
+            $scope.reload = function () {
+                $scope.ID_CongChungVien = 0;
+                $scope.Ten_CongChungVien = "";
+                $scope.Sdt_CongChungVien = "";
+                $scope.CongChungVien = {};
+                init();
+            }
+
+            $scope.show = function (objPB) {
+                if (objPB.IDCongChungVien != null) {
+                    //console.log("Sửa---");
+                    $scope.ID_CongChungVien = objPB.IDCongChungVien;
+                    $scope.Ten_CongChungVien = objPB.FullNameCCV;
+                    $scope.Sdt_CongChungVien = objPB.SoDienThoai;
+                }
+                else {
+                    $scope.ID_CongChungVien = 0;
+                    $scope.Ten_CongChungVien = "";
+                    $scope.Sdt_CongChungVien = "";
+                }
+                //console.log($scope.ID_NhanVien);
+            }
+
+            $scope.Save_CongChungVien = function () {
+                if ($scope.ID_CongChungVien == 0 || $scope.ID_CongChungVien == null) {
+                    $scope.CongChungVien = {};
+                    $scope.CongChungVien.FullNameCCV = $scope.Ten_CongChungVien;
+                    $scope.CongChungVien.SoDienThoai = $scope.Sdt_CongChungVien;
+                    console.log($scope.CongChungVien);
+                    $http({                                 // Thêm nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Insert_CongChungVien",
+                        datatype: "json",
+                        data: JSON.stringify($scope.CongChungVien),
+                    }).then(function (res) {
+                        $('#myModal').modal('hide');
+                        //alert(res.data);
+                        alert("Tạo mới thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+                else {
+                    //console.log("Sửa nhân viên");
+                    $scope.CongChungVien = {};
+                    $scope.CongChungVien.IDCongChungVien = $scope.ID_CongChungVien;
+                    $scope.CongChungVien.FullNameCCV = $scope.Ten_CongChungVien;
+                    $scope.CongChungVien.SoDienThoai = $scope.Sdt_CongChungVien;
+                    $http({                                 // Sửa thông tin nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Update_CongChungVien",
+                        datatype: "json",
+                        data: JSON.stringify($scope.CongChungVien),
+                    }).then(function (res) {
+                        //console.log(res.data);
+                        $('#myModal').modal('hide');
+                        alert("Sửa thành thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+            }
+
+            $scope.getID = function (objCongChungVien) {
+                $scope.CongChungVien.IDCongChungVien = objCongChungVien.IDCongChungVien;
+                $scope.CongChungVien.FullNameCCV = objCongChungVien.FullNameCCV;
+                $scope.CongChungVien.SoDienThoai = objCongChungVien.SoDienThoai;
+            }
+
+            $scope.Delete_CongChungVien = function () {
+                $http({
+                    method: "post",
+                    url: "/DanhMuc/Delete_CongChungVien",
+                    datatype: "json",
+                    data: JSON.stringify($scope.CongChungVien),
+                }).then(function (res) {
+                    $('#confirm-delete').modal('hide');
+                    alert("Xóa thành thành công!");
+                    clearData();
+                    init();
+                })
+            }
+
+        });
+</script>
+
+
+

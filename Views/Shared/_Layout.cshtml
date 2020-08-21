@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Site Metas -->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="#" type="/Asses/image/x-icon" />
+    <link rel="apple-touch-icon" href="#" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/Asses/css/bootstrap.min.css">
+    <!-- Pogo Slider CSS -->
+    <link rel="stylesheet" href="/Asses/css/pogo-slider.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="/Asses/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="/Asses/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Asses/css/custom.css">
+
+</head>
+
+<body id="about_us" data-spy="scroll" data-target="#navbar-wd" data-offset="98">
+    <!-- LOADER -->
+    <div id="preloader">
+        <div class="loader">
+            <img src="/Asses/images/loader.gif" alt="#" />
+        </div>
+    </div>
+    <!-- end loader -->
+    <div class="header">
+        <header class="top-header">
+            <nav class="navbar header-nav navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html"><img src="~/Asses/images/logo-vnpt(1).png" alt="image"></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+                        <ul class="navbar-nav">
+                            <li><a class="nav-link active" href="@Url.Action("Index", "Home")">Nhập liệu</a></li>
+
+                            @*<a class="nav-link" href="about.html">Danh mục</a>*@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Danh mục
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:DodgerBlue">
+                                    <a class="dropdown-item" href="@Url.Action("NhanVien", "DanhMuc")">Nhân viên</a>
+                                    <a class="dropdown-item" href="@Url.Action("KhachHang", "DanhMuc")">Khách hàng</a>
+                                    <a class="dropdown-item" href="@Url.Action("CongChungVien", "DanhMuc")">Công chứng viên</a>
+                                    <a class="dropdown-item" href="@Url.Action("LoaiCongChung", "DanhMuc")">Loại công chứng</a>
+                                    <div class="dropdown-divider"></div>
+                                    @*<a class="dropdown-item" href="#">Something else here</a>*@
+                                </div>
+                            </li>
+                            <li><a class="nav-link" href="@Url.Action("BaoCao", "Home")">Báo cáo</a></li>
+                            <li><a class="nav-link" href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
+                            <li><a class="nav-link active" style="background:#fff;color:#000;" href="contact.html">Sinup now</a></li>
+                        </ul>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" class="search-txt" placeholder="Search">
+                        <a class="search-btn">
+                            <img src="/Asses/images/search_icon.png" alt="#" />
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+    <br />
+
+    <div>
+        @RenderBody()
+    </div>
+
+    <br />
+    <div class="footer">
+        <footer class="footer-box">
+            <p>&copy; @DateTime.Now.Year - Quản lý hồ sơ công chứng - CNTT - Viễn thông Bắc Ninh</p>
+        </footer>
+    </div>
+
+    <!-- ALL JS FILES -->
+    <script src="/Asses/js/jquery.min.js"></script>
+    <script src="/Asses/js/popper.min.js"></script>
+    <script src="/Asses/js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="/Asses/js/bootstrap.min.js"></script>
+    <script src="/Asses/js/jquery.magnific-popup.min.js"></script>
+    <script src="/Asses/js/jquery.pogo-slider.min.js"></script>
+    <script src="/Asses/js/slider-index.js"></script>
+    <script src="/Asses/js/smoothscroll.js"></script>
+    <script src="/Asses/js/form-validator.min.js"></script>
+    <script src="/Asses/js/contact-form-script.js"></script>
+    <script src="/Asses/js/isotope.min.js"></script>
+    <script src="/Asses/js/images-loded.min.js"></script>
+    <script src="/Asses/js/custom.js"></script>
+    <!-- ANGULAR -->
+    <script src="~/Asses/js/angular.min.js"></script>
+
+</body>
+
+</html>

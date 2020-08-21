@@ -1,0 +1,447 @@
+﻿
+@{
+    ViewBag.Title = "BaoCao";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .cangiua {      
+    }
+</style>
+
+<div ng-app="bcApp" ng-controller="bcCtrl">
+    <h2>Trang báo cáo thông kê</h2>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Từ ngày</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isNgayStart"></div>
+                </div>
+                <input type="date" class="form-control" ng-model="NgayStart">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Đến ngày</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isNgayStop"></div>
+                </div>
+                <input type="date" class="form-control" ng-model="NgayStop">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Phí công chứng</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isPhiCongChung"></div>
+                </div>
+                <input class="form-control" type="number" ng-model="PhiCongChung">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Phí hoa hồng</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isPhiHoaHong"></div>
+                </div>
+                <input class="form-control" type="number" ng-model="PhiHoaHong">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Thông tin bên A</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isInforA"></div>
+                </div>
+                <input class="form-control" type="text" ng-model="InforA">
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Thông tin bên B</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isInforB"></div>
+                </div>
+                <input class="form-control" type="text" ng-model="InforB">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Loại công chứng</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDType"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Nhân viên thực hiện</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDNhanVien"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Công chứng viên</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDCongChungVien"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Khách hàng</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDKhachHang"></div>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">Nội dung thực hiện</div>
+                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isContentCongChung"></div>
+                </div>
+                <input class="form-control" type="text" ng-model="ContentCongChung">
+            </div>
+        </div>
+    </div>
+    <div class="d-flex bd-highlight mb-3">
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-warning" ng-click="ChucNang()">Bật/Tắt chức năng</button></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-success" ng-click="SelectAll()">Chọn tất cả</button></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị/Đóng kết quả</button></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="ExcelExport()">Xuất báo cáo</button></div>
+    </div>
+    <hr />
+    <div ng-show="isKetQua">
+        <h3>Kết quả</h3>
+        <table class="table table-striped">
+            <thread>
+                <th scope="col">STT</th>
+                <th scope="col" ng-show="isNgayStart || isNgayStop">Ngày công chứng</th>
+                <th scope="col" ng-show="isInforA">Thông tin bên A</th>
+                <th scope="col" ng-show="isInforB">Thông tin bên B</th>
+                <th scope="col" ng-show="isIDType">Loại công chứng</th>
+                <th scope="col" ng-show="isContentCongChung">Nội dung công chứng</th>
+                <th scope="col" ng-show="isPhiCongChung">Phí công chứng</th>
+                <th scope="col" ng-show="isPhiHoaHong">Phí hoa hồng</th>
+                <th scope="col" ng-show="isIDKhachHang">Khách hàng</th>
+                <th scope="col" ng-show="isIDCongChungVien">Công chứng viên</th>
+                <th scope="col" ng-show="isIDNhanVien">Nhân viên làm</th>
+                <th scope="col" ng-show="isChucNang">Chức năng</th>
+            </thread>
+            <tbody>
+                <tr ng-repeat="item in list_CongChung">
+                    <th scope="row">{{$index+1}}</th>
+                    <td ng-show="isNgayStart || isNgayStop">{{item.NgayTao | date:"dd/MM/yyyy"}}</td>
+                    <td ng-show="isInforA">{{item.InforA}}</td>
+                    <td ng-show="isInforB">{{item.InforB}}</td>
+                    <td ng-show="isIDType">{{item.TypeCC}}</td>
+                    <td ng-show="isContentCongChung">{{item.ContentCongChung}}</td>
+                    <td ng-show="isPhiCongChung">{{item.PhiCongChung}}</td>
+                    <td ng-show="isPhiHoaHong">{{item.PhiHoaHong}}</td>
+                    <td ng-show="isIDKhachHang">{{item.TenKhachHang}}</td>
+                    <td ng-show="isIDCongChungVien">{{item.FullNameCCV}}</td>
+                    <td ng-show="isIDNhanVien">{{item.FullNameNV}}</td>
+                    <td ng-show="isChucNang">
+                        @*<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
+                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>*@
+                        <a href="/Home/Index?id={{item.IDCongChung}}">Sửa</a>
+                        <a class="text-danger" href="">Xóa</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="~/Asses/js/angular.min.js"></script>
+
+<script>
+    var myApp = angular.module('bcApp', []);
+    myApp.controller('bcCtrl', function ($scope, $q, $http, $timeout) {
+        $scope.ContentCongChung = "";
+        $scope.IDType = 0;
+        $scope.InforA = "";
+        $scope.InforB = "";
+        $scope.PhiCongChung = 0;
+        $scope.PhiHoaHong = 0;
+        $scope.IDKhachHang = 0;
+        $scope.IDCongChungVien = 0;
+        $scope.IDNhanVien = 0;
+        $scope.CongChung = {};
+
+        $scope.list_CongChung = [];
+        $scope.list_LoaiCongChung = [];
+        $scope.list_KhachHang = [];
+        $scope.list_CongChungVien = [];
+        $scope.list_NhanVien = [];
+        $scope.strLcc = "";
+        $scope.strTenKh = "";
+        $scope.strTenNv = "";
+        $scope.strTenCcv = "";
+
+        $scope.NameType = "";
+        $scope.FullNameCCV = "";
+        $scope.FullNameNV = "";
+        $scope.NgayTao = "";
+
+        $scope.isNgayCongChung = false;
+        $scope.isNgayStart = false;
+        $scope.isNgayStop = false;
+        $scope.isContentCongChung = false;
+        $scope.isIDNhanVien = false;
+        $scope.isIDType = false;
+        $scope.isInforA = false;
+        $scope.isInforB = false;
+        $scope.isPhiCongChung = false;
+        $scope.isPhiHoaHong = false;
+        $scope.isIDKhachHang = false;
+        $scope.isIDCongChungVien = false;
+        $scope.isKetQua = false;
+        $scope.isChucNang = false;
+        
+        var parseDate = function (value) {
+            if (value) {
+                return new Date(parseInt(value.replace("/Date(", "").replace(")/", "")));
+            }
+            return null;
+        }
+
+        var getcc = function () {
+            return $http({
+                method: "GET",
+                url: "/Home/Get_CongChung",
+                params: {
+                    NgayStart: $scope.NgayStart,
+                    NgayStop: $scope.NgayStop,
+                    strInforA: $scope.InforA,
+                    strInforB: $scope.InforB,
+                    IDType: $scope.IDType,
+                    strContent: $scope.ContentCongChung,
+                    PhiCongChung: $scope.PhiCongChung,
+                    PhiHoaHong: $scope.PhiHoaHong,
+                    IDKhachHang: $scope.IDKhachHang,
+                    IDCongChungVien: $scope.IDCongChungVien,
+                    IDNhanVien: $scope.IDNhanVien
+                }
+            });
+        }
+
+        var clearData = function () {
+            $scope.ContentCongChung = "";
+            $scope.IDType = 0;
+            $scope.InforA = "";
+            $scope.InforB = "";
+            $scope.PhiCongChung = 0;
+            $scope.PhiHoaHong = 0;
+            $scope.IDKhachHang = 0;
+            $scope.IDCongChungVien = 0;
+            //$scope.IDNhanVien = 0;
+            $scope.CongChung = {};
+
+            $scope.NameType = "";
+            $scope.FullNameCCV = "";
+            //$scope.FullNameNV = "";
+            //$scope.NgayTao = "";
+        }
+        var getlcc = function () {
+            return $http({
+                method: "GET",
+                url: "/DanhMuc/Get_LoaiCongChung",
+                params: {
+                    pageSize: 1000,
+                    pageIndex: 1,
+                    strTen: $scope.strLcc
+                }
+            });
+        }
+
+        var getKhachHang = function () {
+            return $http({
+                method: "GET",
+                url: "/DanhMuc/Get_KhachHang",
+                params: {
+                    pageSize: 1000,
+                    pageIndex: 1,
+                    strTen: $scope.strTenKh
+                }
+            });
+        }
+
+        var getCongChungVien = function () {
+            return $http({
+                method: "GET",
+                url: "/DanhMuc/Get_CongChungVien",
+                params: {
+                    pageSize: 1000,
+                    pageIndex: 1,
+                    strTen: $scope.strTenCcv
+                }
+            });
+        }
+
+        var getNhanVien = function () {
+            return $http({
+                method: "GET",
+                url: "/DanhMuc/Get_NhanVien",
+                params: {
+                    pageSize: 1000,
+                    pageIndex: 1,
+                    strTen: $scope.strTenNv
+                }
+            });
+        }
+
+        var init = function () {
+            getlcc().then(function (res) {
+                $scope.list_LoaiCongChung = res.data;
+                //console.log($scope.list_NhanVien);
+            });
+            getKhachHang().then(function (res) {
+                $scope.list_KhachHang = res.data;
+                //console.log($scope.list_KhachHang);
+            });
+            getCongChungVien().then(function (res) {
+                $scope.list_CongChungVien = res.data;
+                //console.log($scope.list_KhachHang);
+            });
+            getNhanVien().then(function (res) {
+                $scope.list_NhanVien = res.data;
+            })
+        }
+
+        init();
+
+        $scope.getLcc = function (obj) {
+            $scope.NameType = obj.NameType;
+            $scope.IDType = obj.IDType;
+            console.log(obj);
+        }
+
+        $scope.getKh = function (obj) {
+            $scope.TenKhachHang = obj.TenKhachHang;
+            $scope.IDKhachHang = obj.IDKhachHang;
+            console.log(obj);
+            console.log($scope.TenKhachHang);
+        }
+
+        $scope.getCcv = function (obj) {
+            $scope.FullNameCCV = obj.FullNameCCV;
+            $scope.IDCongChungVien = obj.IDCongChungVien;
+        }
+
+        $scope.getNv = function (obj) {
+            $scope.FullNameNV = obj.FullNameNV;
+            $scope.IDNhanVien = obj.IDNhanVien;
+        }
+
+        $scope.SelectAll = function () {
+            $scope.isNgayStart = true;
+            $scope.isNgayStop = true;
+            $scope.isContentCongChung = true;
+            $scope.isIDNhanVien = true;
+            $scope.isIDType = true;
+            $scope.isInforA = true;
+            $scope.isInforB = true;
+            $scope.isPhiCongChung = true;
+            $scope.isPhiHoaHong = true;
+            $scope.isIDKhachHang = true;
+            $scope.isIDCongChungVien = true;
+        }
+
+        $scope.ExcelExport = function () {
+            $scope.isKetQua = true;
+        }
+
+        $scope.ChucNang = function () {
+            $scope.isChucNang = !$scope.isChucNang;
+        }
+
+        $scope.KetQua = function () {
+            $scope.isKetQua = !$scope.isKetQua;
+            if (!$scope.isNgayStart) {
+                $scope.NgayStart = "";
+            }
+            if (!$scope.isNgayStop) {
+                $scope.NgayStop = "";
+            }
+            if (!$scope.isContentCongChung) {
+                $scope.ContentCongChung = "";   
+            }
+            if (!$scope.isIDNhanVien) {
+                $scope.IDNhanVien = 0;
+            }
+            if (!$scope.isIDType) {
+                $scope.IDType = 0;
+            }
+            if (!$scope.isInforA) {
+                $scope.InforA = "";
+            }
+            if (!$scope.isInforB) {
+                $scope.InforB = "";
+            }
+            if (!$scope.isPhiCongChung) {
+                $scope.PhiCongChung = 0;
+            }
+            if (!$scope.isPhiHoaHong) {
+                $scope.PhiHoaHong = 0;
+            }
+            if (!$scope.isIDKhachHang) {
+                $scope.IDKhachHang = 0;
+            }
+            if (!$scope.isIDCongChungVien) {
+                $scope.IDCongChungVien = 0;
+            }
+            getcc().then(function (res) {
+                angular.forEach(res.data, function (item) {
+                    item.NgayTao = parseDate(item.NgayTao);
+                });
+                $scope.list_CongChung = res.data;
+                console.log(res.data);
+            });
+        }
+        
+    })
+</script>

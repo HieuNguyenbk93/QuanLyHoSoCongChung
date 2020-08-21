@@ -1,0 +1,246 @@
+﻿
+@{
+    ViewBag.Title = "LoaiCongChung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="lccApp" ng-controller="lccCtrl">
+    <div class="container">
+        <h2>Trang quản lý loại việc công chứng</h2>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" id="button-addon3">
+                        <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        <button class="btn btn-outline-secondary" type="button" ng-click="reload()">Tìm kiếm</button>
+                    </div>
+                    <input type="text" class="form-control" ng-model="strTen" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+                </div>
+            </div>
+        </div>
+        <div> Số loại việc công chứng: {{countlcc}}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Ký hiệu loại công chứng</th>
+                    <th scope="col">Tên loại công chứng</th>
+                    <th scope="col">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list_lcc">
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{item.TypeCC}}</td>
+                    <td>{{item.NameType}}</td>
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
+                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" ng-show="ID_lcc == null">Thêm mới nhân viên</h5>
+                    <h5 class="modal-title" ng-show="ID_lcc != null">Sửa nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">Ký hiệu loại việc công chứng<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Ten" ng-model="Type_lcc" tabindex="2">
+                            <label class="help-block" id="lblTen" style="display: none"></label>
+                        </div>
+                        <div class="profile-info-name">Tên loại việc công chứng<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-value">
+                            <input type="text" class="form-control input-sm" id="Sdt" ng-model="Name_lcc" tabindex="2">
+                            <label class="help-block" id="lblSdt" style="display: none"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_lcc()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa loại việc công chứng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa loại việc công chứng: <strong class="red">{{lcc.NameType}}</strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" ng-click="Delete_lcc()">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Asses/js/angular.min.js"></script>
+
+<script>
+        var myApp = angular.module('lccApp', []);
+        myApp.controller('lccCtrl', function ($scope, $q, $http, $timeout) {
+
+            $scope.strTen = "";
+            $scope.countlcc = 0;
+
+            $scope.lcc = {};
+            $scope.ID_lcc = 0;
+            $scope.Type_lcc = "";
+            $scope.Name_lcc = "";
+            $scope.NgayTao = "";
+
+            $scope.list_lcc = [];
+
+            var getInit = function () {
+                return $http({
+                    method: "POST",
+                    url: "/DanhMuc/Count_NhanVien",
+                    data: {
+                        DieuKien: 4,
+                    }
+                });
+            }
+
+            var getlcc = function () {
+                return $http({
+                    method: "GET",
+                    url: "/DanhMuc/Get_LoaiCongChung",
+                    params: {
+                        pageSize: 1000,
+                        pageIndex: 1,
+                        strTen: $scope.strTen
+                    }
+                });
+            }
+
+            var init = function () {
+                getInit().then(function (res) {
+                    $scope.countlcc = res.data;
+                });
+
+                getlcc().then(function (res) {
+                    $scope.list_lcc = res.data;
+                    //console.log($scope.list_NhanVien);
+                });
+            }
+
+            init();
+
+            var clearData = function () {
+                $scope.Type_lcc = "";
+                $scope.Name_lcc = "";
+                $scope.lcc = {};
+            }
+
+            $scope.reload = function () {
+                $scope.ID_lcc = 0;
+                $scope.Type_lcc = "";
+                $scope.Name_lcc = "";
+                $scope.lcc = {};
+                init();
+            }
+
+            $scope.show = function (objPB) {
+                if (objPB.IDType != null) {
+                    //console.log("Sửa---");
+                    $scope.ID_lcc = objPB.IDType;
+                    $scope.Type_lcc = objPB.TypeCC;
+                    $scope.Name_lcc = objPB.NameType;
+                }
+                else {
+                    $scope.ID_lcc = 0;
+                    $scope.Type_lcc = "";
+                    $scope.Name_lcc = "";
+                }
+                //console.log($scope.ID_NhanVien);
+            }
+
+            $scope.Save_lcc = function () {
+                if ($scope.ID_lcc == 0 || $scope.ID_lcc == null) {
+                    $scope.lcc = {};
+                    $scope.lcc.TypeCC = $scope.Type_lcc;
+                    $scope.lcc.NameType = $scope.Name_lcc;
+                    console.log($scope.lcc);
+                    $http({                                 // Thêm nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Insert_LoaiCongChung",
+                        datatype: "json",
+                        data: JSON.stringify($scope.lcc),
+                    }).then(function (res) {
+                        $('#myModal').modal('hide');
+                        //alert(res.data);
+                        alert("Tạo mới thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+                else {
+                    //console.log("Sửa nhân viên");
+                    $scope.lcc = {};
+                    $scope.lcc.IDType = $scope.ID_lcc;
+                    $scope.lcc.TypeCC = $scope.Type_lcc;
+                    $scope.lcc.NameType = $scope.Name_lcc;
+                    $http({                                 // Sửa thông tin nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Update_LoaiCongChung",
+                        datatype: "json",
+                        data: JSON.stringify($scope.lcc),
+                    }).then(function (res) {
+                        //console.log(res.data);
+                        $('#myModal').modal('hide');
+                        alert("Sửa thành thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+            }
+
+            $scope.getID = function (objlcc) {
+                $scope.lcc.IDType = objlcc.IDType;
+                $scope.lcc.TypeCC = objlcc.TypeCC;
+                $scope.lcc.NameType = objlcc.NameType;
+            }
+
+            $scope.Delete_lcc = function () {
+                $http({
+                    method: "post",
+                    url: "/DanhMuc/Delete_LoaiCongChung",
+                    datatype: "json",
+                    data: JSON.stringify($scope.lcc),
+                }).then(function (res) {
+                    $('#confirm-delete').modal('hide');
+                    alert("Xóa thành thành công!");
+                    clearData();
+                    init();
+                })
+            }
+
+        });
+</script>
+
+
+
