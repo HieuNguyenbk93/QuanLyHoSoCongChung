@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="/Asses/css/responsive.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/Asses/css/custom.css">
+    <link rel="stylesheet" href="~/Asses/css/MyStyle.css" />
 
 </head>
 
@@ -40,11 +41,11 @@
         </div>
     </div>
     <!-- end loader -->
-    <div class="header">
+    <div class="header" style="height:50px;">
         <header class="top-header">
-            <nav class="navbar header-nav navbar-expand-lg">
+            <nav class="navbar header-nav navbar-expand-lg" style="padding-bottom:0px;padding-top:0px">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="index.html"><img src="~/Asses/images/logo-vnpt(1).png" alt="image"></a>
+                    <a class="navbar-brand" href="index.html"><img src="~/Asses/images/logo-vnpt(1).png" alt="image" style="height:50px;"></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
                         <span></span>
                         <span></span>
@@ -52,11 +53,11 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
                         <ul class="navbar-nav">
-                            <li><a class="nav-link active" href="@Url.Action("Index", "Home")">Nhập liệu</a></li>
+                            <li><a class="nav-link active menu-a" href="@Url.Action("Index", "Home")">Quản lý hồ sơ</a></li>
 
                             @*<a class="nav-link" href="about.html">Danh mục</a>*@
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle menu-a" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Danh mục
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:DodgerBlue">
@@ -68,17 +69,17 @@
                                     @*<a class="dropdown-item" href="#">Something else here</a>*@
                                 </div>
                             </li>
-                            <li><a class="nav-link" href="@Url.Action("BaoCao", "Home")">Báo cáo</a></li>
-                            <li><a class="nav-link" href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
-                            <li><a class="nav-link active" style="background:#fff;color:#000;" href="contact.html">Sinup now</a></li>
+                            <li><a class="nav-link menu-a" href="@Url.Action("BaoCao", "Home")">Báo cáo</a></li>
+                            <li><a class="nav-link menu-a" href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
+                            <li><a class="nav-link active" style="background:#fff;color:#000;" href="contact.html">Tài khoản</a></li>
                         </ul>
                     </div>
-                    <div class="search-box">
+                    @*<div class="search-box">
                         <input type="text" class="search-txt" placeholder="Search">
                         <a class="search-btn">
                             <img src="/Asses/images/search_icon.png" alt="#" />
                         </a>
-                    </div>
+                    </div>*@
                 </div>
             </nav>
         </header>
@@ -91,13 +92,14 @@
 
     <br />
     <div class="footer">
-        <footer class="footer-box">
-            <p>&copy; @DateTime.Now.Year - Quản lý hồ sơ công chứng - CNTT - Viễn thông Bắc Ninh</p>
+        <footer class="footer-box" style="height:25px;padding-top: 10px;padding-bottom: 40px;">
+            <p style="margin-bottom:10px">@DateTime.Now.Year - Quản lý hồ sơ công chứng - CNTT - Viễn thông Bắc Ninh</p>
         </footer>
     </div>
 
     <!-- ALL JS FILES -->
     <script src="/Asses/js/jquery.min.js"></script>
+    @*<script src="~/Asses/js/jquery-3.5.1.slim.min.js"></script>*@
     <script src="/Asses/js/popper.min.js"></script>
     <script src="/Asses/js/bootstrap.min.js"></script>
     <!-- ALL PLUGINS -->

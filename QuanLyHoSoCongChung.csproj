@@ -200,6 +200,7 @@
     <Content Include="Asses\css\flaticon.css" />
     <Content Include="Asses\css\font-awesome.min.css" />
     <Content Include="Asses\css\magnific-popup.css" />
+    <Content Include="Asses\css\MyStyle.css" />
     <Content Include="Asses\css\pogo-slider.min.css" />
     <Content Include="Asses\css\responsive.css" />
     <Content Include="Asses\css\responsiveslides.css" />
@@ -234,9 +235,12 @@
     <Content Include="Asses\js\bootstrap.min.js" />
     <Content Include="Asses\js\contact-form-script.js" />
     <Content Include="Asses\js\custom.js" />
+    <Content Include="Asses\js\FileSaver.js" />
+    <Content Include="Asses\js\FileSaver.min.js" />
     <Content Include="Asses\js\form-validator.min.js" />
     <Content Include="Asses\js\images-loded.min.js" />
     <Content Include="Asses\js\isotope.min.js" />
+    <Content Include="Asses\js\jquery-3.5.1.slim.min.js" />
     <Content Include="Asses\js\jquery.magnific-popup.min.js" />
     <Content Include="Asses\js\jquery.min.js" />
     <Content Include="Asses\js\jquery.pogo-slider.min.js" />

@@ -11,7 +11,6 @@ namespace QuanLyHoSoCongChung.Controllers
     public class HomeController : Controller
     {
         GenericRepository<CongChung> _context = null;
-        private NhanVienRp _obj1 = new NhanVienRp();
         private CongChungRp _obj = new CongChungRp();
         public ActionResult Index()
         {
@@ -38,12 +37,7 @@ namespace QuanLyHoSoCongChung.Controllers
             return View();
         }
 
-        public ActionResult Get_CongChungById(int Id)
-        {
-            CongChungGet result = _obj.CongChung_Get(Id);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
+        //Thêm mới công chứng
         public string Insert_CongChung(CongChung model)
         {
             _context = new GenericRepository<CongChung>();
@@ -61,6 +55,7 @@ namespace QuanLyHoSoCongChung.Controllers
             }
         }
 
+        // Sửa công chứng
         public string Update_CongChung(CongChung model)
         {
             _context = new GenericRepository<CongChung>();
@@ -78,11 +73,14 @@ namespace QuanLyHoSoCongChung.Controllers
             }
         }
 
-        public string TestNgay(DateTime Ngay)
+        // Lấy công chứng theo id
+        public ActionResult Get_CongChungById(int Id)
         {
-            string res = _obj1.TestNgay(Ngay);
-            return res;
+            CongChungGet result = _obj.CongChung_Get(Id);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        //Tìm kiếm trong hồ sơ công chứng
         public ActionResult Get_CongChung(string NgayStart, string NgayStop, string strInforA, string strInforB, int IDType, string strContent, int PhiCongChung, int PhiHoaHong, int IDKhachHang, int IDCongChungVien, int IDNhanVien)
         {
             if (NgayStart == null)
@@ -95,6 +93,28 @@ namespace QuanLyHoSoCongChung.Controllers
             }
             List<CongChungGet> result = _obj.CongChung_GetList(NgayStart, NgayStop, strInforA, strInforB, IDType, strContent, PhiCongChung, PhiHoaHong, IDKhachHang, IDCongChungVien, IDNhanVien);
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        // Lấy 5 công chứng gần nhất
+        public ActionResult Get_CongChungNew(int count)
+        {
+            List<CongChungGet> result = _obj.CongChung_GetNew(count);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public string Delete_CongChung(CongChung model)
+        {
+            _context = new GenericRepository<CongChung>();
+            if (model != null)
+            {
+                int x = model.IDCongChung;
+                _context.Delete(x);
+                _context.Save();
+                return "Successfully";
+            }
+            else
+            {
+                return "Not delete";
+            }
         }
     }
 }

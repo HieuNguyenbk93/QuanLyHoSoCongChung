@@ -5,118 +5,331 @@
     <div ng-app="ccApp" ng-controller="ccCtrl">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <div class="form-group">
-                        <label>Nội dung</label>
-                        <input type="text" class="form-control" ng-model="ContentCongChung">
-                        <lable class="label-danger" ng-show='ContentCongChung == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
-                    </div>
-                    @*<div class="form-group">
-                        <label>Loại việc công chứng</label>
-                        <input type="text" class="form-control" ng-model="IDType">
-                    </div>*@
-                    <div class="form-group">
-                    <label>Loại việc công chứng</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <lable class="label-danger" ng-show='NameType == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
-                    </div>
-                    <div class="form-group">
-                        <label>Thông tin bên A</label>
-                        <input type="text" class="form-control" ng-model="InforA">
-                    </div>
-                    <div class="form-group">
-                        <label>Thông tin bên B</label>
-                        <input type="text" class="form-control" ng-model="InforB">
-                    </div>
-                    <div class="form-group">
-                        <label>Phí công chứng</label>
-                        <input type="number" class="form-control" ng-model="PhiCongChung">
-                        <lable class="label-danger" ng-show='PhiCongChung == 0' style="color:red"><small>(*)Không được bỏ trống</small></lable>
-                    </div>
-                </div>
-                <div class="col-2"></div>
-                <div class="col">
-                    <div class="form-group">
-                        <label>Phí hoa hồng</label>
-                        <input type="number" class="form-control" ng-model="PhiHoaHong">
-                    </div>
-                    @*<div class="form-group">
-                        <label>Khách hàng</label>
-                        <input type="text" class="form-control" ng-model="IDKhachHang">
-                    </div>*@
-                    <div class="form-group">
-                        <label>Khách hàng</label>
-                        <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    @*<div class="form-group">
-                        <label>Công chứng viên ký</label>
-                        <input type="text" class="form-control" ng-model="IDCongChungVien">
-                    </div>*@
-                    <div class="form-group">
-                        <label>Công chứng viên ký</label>
-                        <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
-                            </div>
-                            </div>
-                        </div>
-                        <lable class="label-danger" ng-show='FullNameCCV == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
-                    </div>
-                    @*<div class="form-group">
-                        <label>Nhân viên thực hiện</label>
-                        <input type="text" class="form-control" ng-model="IDNhanVien">
-                    </div>*@
-                    <div class="form-group">
-                        <label>Nhân viên thực hiện</label>
-                        <div class="input-group">
-                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
-                            <div class="input-group-append">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
-                            </div>
-                            </div>
-                        </div>
-                        <lable class="label-danger" ng-show='FullNameNV == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
-                    </div>
-                    <div class="form-group">
-                        <label>Ngày công chứng</label>
-                        <input type="date" class="form-control" ng-model="NgayTao">
-                        <lable class="label-danger" ng-show='NgayTao == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
-                    </div>
-
-                    <button type="button" class="btn btn-primary" ng-click="AddCC()" ng-show="isAdd">Lưu</button>
-                    <button type="button" class="btn btn-primary" ng-click="EditCC()" ng-show="!isAdd">Sửa</button>
-
-                    @*<lable ng-if="title == 1">Đây là lable 1</lable>
-            <lable ng-if="title == 2">Đây là lable 2</lable>
-            <lable ng-if="title == 3">Đây là lable 3</lable>*@
-                </div>
-
+                <h3>Trang quản lý hồ sơ</h3>
             </div>
-            <div>
+            <div class="row">
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Từ ngày</div>
+                        </div>
+                        <input type="date" class="form-control" ng-model="NgayStart">
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Đến ngày</div>
+                        </div>
+                        <input type="date" class="form-control" ng-model="NgayStop">
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Phí công chứng</div>
+                        </div>
+                        <input class="form-control" type="number" ng-model="PhiCongChung">
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Phí hoa hồng</div>
+                        </div>
+                        <input class="form-control" type="number" ng-model="PhiHoaHong">
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Thông tin bên A</div>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforA"></textarea>
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Thông tin bên B</div>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforB"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="col">Loại công chứng</div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Nhân viên thực hiện</div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="col">Công chứng viên</div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Khách hàng</div>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col div-form">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">Nội dung công chứng</div>
+                        </div>
+                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="ContentCongChung"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex flex-row-reverse bd-highlight">
+                <button type="button" class="btn btn-primary p-2 bd-highlight btn-sm" ng-click="KetQua()" style="margin-left: 5px;">Tìm kiếm</button>
+                <button type="button" class="btn btn-primary p-2 bd-highlight btn btn-success btn-sm" ng-click="show('')"  data-toggle="modal" data-target="#myModal">Thêm mới</button>
+            </div>
+            <hr />
+            <div class="row">
+                <h3 style="padding-right: 10px;padding-bottom: 5px;padding-top: 5px;">Thông tin hồ sơ gần nhất. Hiển thị</h3>
+                @*<span>Hiển thị</span>*@
+                <select ng-model="count" ng-change="reload()" ng-init="count='3'">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
 
+            <div class="row" style="font-size:13px">
+                <table class="table table-striped">
+                    <thread>
+                        <th scope="col">STT</th>
+                        <th scope="col">Ngày công chứng</th>
+                        <th scope="col">Loại công chứng</th>
+                        <th scope="col">Phí công chứng</th>
+                        <th scope="col">Phí hoa hồng</th>
+                        <th scope="col">Khách hàng</th>
+                        <th scope="col">Công chứng viên</th>
+                        <th scope="col">Nhân viên làm</th>
+                        <th scope="col">Chức năng</th>
+                    </thread>
+                    <tbody>
+                        <tr ng-repeat="item in list_CongChung">
+                            <th scope="row">{{$index+1}}</th>
+                            <td>{{item.NgayTao | date:"dd/MM/yyyy"}}</td>
+                            <td>{{item.TypeCC}}</td>
+                            <td>{{item.PhiCongChung}}</td>
+                            <td>{{item.PhiHoaHong}}</td>
+                            <td>{{item.TenKhachHang}}</td>
+                            <td>{{item.FullNameCCV}}</td>
+                            <td>{{item.FullNameNV}}</td>
+                            <td>
+                                @*<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success btn-sm p-2" ng-click="show(item);" style="padding-left: 6px;padding-right: 6px;">Sửa</button>
+                                <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger btn-sm p-2" style="padding-left: 6px;padding-right: 6px;">Xóa</button>*@
+                                <a class="text-warning" href="#" ng-click="show(item);" data-toggle="modal" data-target="#myModal">Sửa</a>
+                                <a class="text-danger" href="#" data-toggle="modal" data-target="#confirm-delete" ng-click="show(item)">Xóa</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
+
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" ng-show="IDCongChung == null">Thêm mới hồ sơ</h5>
+                        <h5 class="modal-title" ng-show="IDCongChung != null">Sửa hồ sơ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Ngày công chứng</label>
+                                        <input type="date" class="form-control" ng-model="NgayTao">
+                                        <lable class="label-danger" ng-show='NgayTao == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Loại việc công chứng</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <lable class="label-danger" ng-show='NameType == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-left:15px;padding-right:15px;margin-bottom: 10px;">
+                                @*<div class="form-group">*@
+                                    <label>Nội dung</label>
+                                    <textarea class="form-control" aria-label="With textarea" style="height:60px" ng-model="ContentCongChung"></textarea>
+                                    <lable class="label-danger" ng-show='ContentCongChung == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
+                                @*</div>*@
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Thông tin bên A</label>
+                                        <textarea class="form-control" aria-label="With textarea" style="height:60px" ng-model="InforA"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Thông tin bên B</label>
+                                        <textarea class="form-control" aria-label="With textarea" style="height:60px" ng-model="InforB"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Công chứng viên ký</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <lable class="label-danger" ng-show='FullNameCCV == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Nhân viên thực hiện</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <lable class="label-danger" ng-show='FullNameNV == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="lable-bottom">Phí công chứng</label>
+                                                <input type="number" class="form-control" ng-model="PhiCongChung">
+                                                <lable class="label-danger" ng-show='!PhiCongChung' style="color:red"><small>(*)Không được bỏ trống</small></lable>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label class="lable-bottom">Phí hoa hồng</label>
+                                                <input type="number" class="form-control" ng-model="PhiHoaHong">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="lable-bottom">Khách hàng</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" ng-click="Save_CongChung()">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Xóa hồ sơ</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn có chắc chắn muốn xóa hồ sơ <strong class="red"></strong>?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" ng-click="Delete_CongChung()">Xóa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="~/Asses/js/angular.min.js"></script>
@@ -124,6 +337,7 @@
 <script>
     var myApp = angular.module('ccApp', []);
     myApp.controller('ccCtrl', function ($scope, $q, $http, $timeout, $location) {
+        $scope.IDCongChung = 0;
         $scope.ContentCongChung = "";
         $scope.IDType = 0;
         $scope.InforA = "";
@@ -132,9 +346,11 @@
         $scope.PhiHoaHong = 0;
         $scope.IDKhachHang = 0;
         $scope.IDCongChungVien = 0;
+        $scope.TenCongChungVien = "";
         $scope.IDNhanVien = 0;
         $scope.CongChung = {};
 
+        $scope.list_CongChung = [];
         $scope.list_LoaiCongChung = [];
         $scope.list_KhachHang = [];
         $scope.list_CongChungVien = [];
@@ -145,11 +361,12 @@
         $scope.strTenCcv = "";
 
         $scope.NameType = "";
+        $scope.TenKhachHang = "";
         $scope.FullNameCCV = "";
         $scope.FullNameNV = "";
         $scope.NgayTao = "";
 
-        $scope.isAdd = true;
+        $scope.count = 3;
 
         //var param = $location.search().id;
 
@@ -160,18 +377,20 @@
             return null;
         }
 
-        var queryString = function (name, url) {
-            if (!url) url = location.href;
-            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-            var regexS = "[\\?&]" + name + "=([^&#]*)";
-            var regex = new RegExp(regexS);
-            var results = regex.exec(url);
-            return results == null ? null : results[1];
-        }
-        var url = window.location.href;
-        $scope.Id = queryString('id', url);
+        //var queryString = function (name, url) {
+        //    if (!url) url = location.href;
+        //    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        //    var regexS = "[\\?&]" + name + "=([^&#]*)";
+        //    var regex = new RegExp(regexS);
+        //    var results = regex.exec(url);
+        //    return results == null ? null : results[1];
+        //}
+        //var url = window.location.href;
+        //$scope.Id = queryString('id', url);
+        //Lấy id từ url
 
         var clearData = function () {
+            $scope.IDCongChung = 0;
             $scope.ContentCongChung = "";
             $scope.IDType = 0;
             $scope.InforA = "";
@@ -184,10 +403,23 @@
             $scope.CongChung = {};
 
             $scope.NameType = "";
+            $scope.TenKhachHang = "";
             $scope.FullNameCCV = "";
             $scope.FullNameNV = "";
             $scope.NgayTao = "";
+
+            $scope.list_CongChung = [];
         }
+
+        // Đổi ngày
+        var parseDate = function (value) {
+            if (value) {
+                return new Date(parseInt(value.replace("/Date(", "").replace(")/", "")));
+            }
+            return null;
+        }
+
+        //Hàm lấy ra list loại công chứng
         var getlcc = function () {
             return $http({
                 method: "GET",
@@ -200,6 +432,7 @@
             });
         }
 
+        //Hàm lấy ra list khách hàng
         var getKhachHang = function () {
             return $http({
                 method: "GET",
@@ -212,6 +445,7 @@
             });
         }
 
+        //Hàm lấy list công chứng viên
         var getCongChungVien = function () {
             return $http({
                 method: "GET",
@@ -224,16 +458,18 @@
             });
         }
 
+        //Hàm lấy công chứng mới nhất
         var getCongChung = function () {
             return $http({
                 method: "GET",
-                url: "/Home/Get_CongChungById",
+                url: "/Home/Get_CongChungNew",
                 params: {
-                    id: $scope.Id
+                    count: $scope.count,
                 }
             })
         }
 
+        //Hàm lấy list nhân viên
         var getNhanVien = function () {
             return $http({
                 method: "GET",
@@ -246,97 +482,233 @@
             });
         }
 
+        // Hàm tìm công chứng theo tham số đầu vào
+        var getcc = function () {
+            return $http({
+                method: "GET",
+                url: "/Home/Get_CongChung",
+                params: {
+                    NgayStart: $scope.NgayStart,
+                    NgayStop: $scope.NgayStop,
+                    strInforA: $scope.InforA,
+                    strInforB: $scope.InforB,
+                    IDType: $scope.IDType,
+                    strContent: $scope.ContentCongChung,
+                    PhiCongChung: $scope.PhiCongChung,
+                    PhiHoaHong: $scope.PhiHoaHong,
+                    IDKhachHang: $scope.IDKhachHang,
+                    IDCongChungVien: $scope.IDCongChungVien,
+                    IDNhanVien: $scope.IDNhanVien
+                }
+            });
+        }
+
+        //Khởi tạo giá trị các biến khi load trang
         var init = function () {
-            getlcc().then(function (res) {
+            getlcc().then(function (res) {                          //Lấy list loại công chứng
                 $scope.list_LoaiCongChung = res.data;
                 //console.log($scope.list_NhanVien);
             });
-            getKhachHang().then(function (res) {
+            getKhachHang().then(function (res) {                    //Lấy list khách hàng
                 $scope.list_KhachHang = res.data;
                 //console.log($scope.list_KhachHang);
             });
-            getCongChungVien().then(function (res) {
+            getCongChungVien().then(function (res) {                //Lấy list công chứng viên
                 $scope.list_CongChungVien = res.data;
                 //console.log($scope.list_KhachHang);
             });
-            getNhanVien().then(function (res) {
+            getNhanVien().then(function (res) {                     // Lấy list nhân viên
                 $scope.list_NhanVien = res.data;
             })
-            if ($scope.Id != null) {
-                $scope.isAdd = false;
-                getCongChung().then(function (res) {
-                    $scope.CongChung = res.data;
-                    $scope.IDCongChung = $scope.CongChung.IDCongChung;
-                    $scope.IDType = $scope.CongChung.IDType;
-                    $scope.ContentCongChung = $scope.CongChung.ContentCongChung;
-                    $scope.NameType = $scope.CongChung.TypeCC;
-                    $scope.InforA = $scope.CongChung.InforA;
-                    $scope.InforB = $scope.CongChung.InforB;
-                    $scope.PhiCongChung = $scope.CongChung.PhiCongChung;
-                    $scope.PhiHoaHong = $scope.CongChung.PhiHoaHong;
-                    $scope.IDKhachHang = $scope.CongChung.IDKhachHang;
-                    $scope.TenKhachHang = $scope.CongChung.TenKhachHang;
-                    $scope.IDCongChungVien = $scope.CongChung.IDCongChungVien;
-                    $scope.FullNameCCV = $scope.CongChung.FullNameCCV;
-                    $scope.IDNhanVien = $scope.CongChung.IDNhanVien;
-                    $scope.FullNameNV = $scope.CongChung.FullNameNV;
-                    $scope.NgayTao = parseDate($scope.CongChung.NgayTao);
-                })
-            }
+            getCongChung().then(function (res) {
+                angular.forEach(res.data, function (item) {
+                    item.NgayTao = parseDate(item.NgayTao);
+                });
+                $scope.list_CongChung = res.data;
+                console.log($scope.list_CongChung);
+            })
         }
 
         init();
 
+        // Lấy tên loại công chứng theo id công chứng
         $scope.getLcc = function (obj) {
             $scope.NameType = obj.NameType;
             $scope.IDType = obj.IDType;
-            console.log(obj);
         }
 
+        // Lấy tên khách hàng theo id
         $scope.getKh = function (obj) {
             $scope.TenKhachHang = obj.TenKhachHang;
             $scope.IDKhachHang = obj.IDKhachHang;
-            console.log(obj);
-            console.log($scope.TenKhachHang);
         }
 
+        // Lấy tên công chứng viên theo ID
         $scope.getCcv = function (obj) {
             $scope.FullNameCCV = obj.FullNameCCV;
             $scope.IDCongChungVien = obj.IDCongChungVien;
         }
 
+        // Lấy tên nhân viên theo id
         $scope.getNv = function (obj) {
             $scope.FullNameNV = obj.FullNameNV;
             $scope.IDNhanVien = obj.IDNhanVien;
         }
 
-        $scope.AddCC = function () {
-            $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
-            $scope.CongChung.IDType = $scope.IDType;
-            $scope.CongChung.InforA = $scope.InforA;
-            $scope.CongChung.InforB = $scope.InforB;
-            $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
-            $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
-            $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
-            $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
-            $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
-            $scope.CongChung.NgayTao = $scope.NgayTao;
-            //console.log($scope.CongChung);
-            $http({                                 // Thêm nhân viên
-                method: "post",
-                url: "/Home/Insert_CongChung",
-                datatype: "json",
-                data: JSON.stringify($scope.CongChung),
-            }).then(function (res) {
-                $('#myModal').modal('hide');
-                //alert(res.data);
-                alert("Tạo mới thành công!");
-                clearData();
-                init();
-            })
+        //$scope.AddCC = function () {
+        //    $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
+        //    $scope.CongChung.IDType = $scope.IDType;
+        //    $scope.CongChung.InforA = $scope.InforA;
+        //    $scope.CongChung.InforB = $scope.InforB;
+        //    $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
+        //    $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
+        //    $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
+        //    $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
+        //    $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
+        //    $scope.CongChung.NgayTao = $scope.NgayTao;
+        //    //console.log($scope.CongChung);
+        //    $http({                                 // Thêm nhân viên
+        //        method: "post",
+        //        url: "/Home/Insert_CongChung",
+        //        datatype: "json",
+        //        data: JSON.stringify($scope.CongChung),
+        //    }).then(function (res) {
+        //        $('#myModal').modal('hide');
+        //        //alert(res.data);
+        //        alert("Tạo mới thành công!");
+        //        clearData();
+        //        init();
+        //    })
+        //}
+
+        //$scope.EditCC = function () {
+        //    $scope.CongChung.IDCongChung = $scope.IDCongChung;
+        //    $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
+        //    $scope.CongChung.IDType = $scope.IDType;
+        //    $scope.CongChung.InforA = $scope.InforA;
+        //    $scope.CongChung.InforB = $scope.InforB;
+        //    $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
+        //    $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
+        //    $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
+        //    $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
+        //    $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
+        //    $scope.CongChung.NgayTao = $scope.NgayTao;
+        //    $http({                                 // Thêm nhân viên
+        //        method: "post",
+        //        url: "/Home/Update_CongChung",
+        //        datatype: "json",
+        //        data: JSON.stringify($scope.CongChung),
+        //    }).then(function (res) {
+        //        $('#myModal').modal('hide');
+        //        //alert(res.data);
+        //        alert("Tạo mới thành công!");
+        //        //$scope.isAdd = false;
+        //        //clearData();
+        //        init();
+        //    })
+        //}
+
+        $scope.reload = function () {
+            clearData();
+            init();
+            //$scope.PhongBan = {};
         }
 
-        $scope.EditCC = function () {
+        $scope.show = function (obj) {
+            if (obj.IDCongChung != null) {
+                //console.log("Sửa---");
+                $scope.IDCongChung = obj.IDCongChung;
+                $scope.ContentCongChung = obj.ContentCongChung;
+                $scope.IDType = obj.IDType;
+                $scope.NameType = obj.TypeCC;
+                $scope.InforA = obj.InforA;
+                $scope.InforB = obj.InforB;
+                $scope.PhiCongChung = obj.PhiCongChung;
+                $scope.PhiHoaHong = obj.PhiHoaHong;
+                $scope.IDKhachHang = obj.IDKhachHang;
+                $scope.TenKhachHang = obj.TenKhachHang;
+                $scope.IDCongChungVien = obj.IDCongChungVien;
+                $scope.FullNameCCV = obj.FullNameCCV;
+                $scope.IDNhanVien = obj.IDNhanVien;
+                $scope.FullNameNV = obj.FullNameNV;
+                $scope.NgayTao = obj.NgayTao;
+            }
+            else {
+                $scope.IDCongChung = 0;
+                $scope.ContentCongChung = "";
+                $scope.IDType = 0;
+                $scope.NameType = "";
+                $scope.InforA = "";
+                $scope.InforB = "";
+                $scope.PhiCongChung = 0;
+                $scope.PhiHoaHong = 0;
+                $scope.IDKhachHang = 0;
+                $scope.TenKhachHang = "";
+                $scope.IDCongChungVien = 0;
+                $scope.FullNameCCV = "";
+                $scope.IDNhanVien = 0;
+                $scope.FullNameNV = "";
+                $scope.NgayTao = "";
+            }
+            console.log($scope.IDCongChung);
+        }
+
+        $scope.Save_CongChung = function () {
+            if ($scope.IDCongChung == 0 || $scope.IDCongChung == null) {
+                $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
+                $scope.CongChung.IDType = $scope.IDType;
+                $scope.CongChung.InforA = $scope.InforA;
+                $scope.CongChung.InforB = $scope.InforB;
+                $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
+                $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
+                $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
+                $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
+                $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
+                $scope.CongChung.NgayTao = $scope.NgayTao;
+                //console.log($scope.CongChung);
+                $http({                                 // Thêm nhân viên
+                    method: "post",
+                    url: "/Home/Insert_CongChung",
+                    datatype: "json",
+                    data: JSON.stringify($scope.CongChung),
+                }).then(function (res) {
+                    $('#myModal').modal('hide');
+                    //alert(res.data);
+                    alert("Tạo mới thành công!");
+                    clearData();
+                    init();
+                })
+            }
+            else {
+                    $scope.CongChung.IDCongChung = $scope.IDCongChung;
+                    $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
+                    $scope.CongChung.IDType = $scope.IDType;
+                    $scope.CongChung.InforA = $scope.InforA;
+                    $scope.CongChung.InforB = $scope.InforB;
+                    $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
+                    $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
+                    $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
+                    $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
+                    $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
+                    $scope.CongChung.NgayTao = $scope.NgayTao;
+                    $http({                                 
+                        method: "post",
+                        url: "/Home/Update_CongChung",
+                        datatype: "json",
+                        data: JSON.stringify($scope.CongChung),
+                    }).then(function (res) {
+                        $('#myModal').modal('hide');
+                        //alert(res.data);
+                        alert("Cập nhật thành công!");
+                        //$scope.isAdd = false;
+                        clearData();
+                        init();
+                    })
+            }
+        }
+
+        $scope.Delete_CongChung = function () {
+            console.log("Thực hiện xóa");
             $scope.CongChung.IDCongChung = $scope.IDCongChung;
             $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
             $scope.CongChung.IDType = $scope.IDType;
@@ -348,19 +720,28 @@
             $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
             $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
             $scope.CongChung.NgayTao = $scope.NgayTao;
-            $http({                                 // Thêm nhân viên
+            console.log($scope.CongChung);
+            $http({
                 method: "post",
-                url: "/Home/Update_CongChung",
+                url: "/Home/Delete_CongChung",
                 datatype: "json",
                 data: JSON.stringify($scope.CongChung),
             }).then(function (res) {
-                $('#myModal').modal('hide');
-                //alert(res.data);
-                alert("Tạo mới thành công!");
-                //$scope.isAdd = false;
-                //clearData();
+                $('#confirm-delete').modal('hide');
+                alert("Xóa thành thành công!");
+                clearData();
                 init();
             })
+        }
+
+        $scope.KetQua = function () {
+            getcc().then(function (res) {
+                angular.forEach(res.data, function (item) {
+                    item.NgayTao = parseDate(item.NgayTao);
+                });
+                $scope.list_CongChung = res.data;
+                console.log(res.data);
+            });
         }
 
     })

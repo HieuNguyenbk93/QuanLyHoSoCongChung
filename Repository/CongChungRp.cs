@@ -23,6 +23,13 @@ namespace QuanLyHoSoCongChung.Repository
             return data;
         }
 
+        public List<CongChungGet> CongChung_GetNew (int count)
+        {
+            var data = _context.Database.SqlQuery<CongChungGet>("CongChung_GetNew @count",
+                new SqlParameter("@count", count)).ToList();
+            return data;
+        }
+
         public List<CongChungGet> CongChung_GetList(string NgayStart, string NgayStop, string strInforA, string strInforB, int IDType, string strContent, int PhiCongChung, int PhiHoaHong, int IDKhachHang, int IDCongChungVien, int IDNhanVien)
         {
             var data = _context.Database.SqlQuery<CongChungGet>("CongChung_GetData @NgayStart, @NgayStop, @strInforA, @strInforB, @IDType, @strContent, @PhiCongChung, @PhiHoaHong, @IDKhachHang, @IDCongChungVien, @IDNhanVien",

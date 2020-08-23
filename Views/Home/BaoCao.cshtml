@@ -4,16 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .cangiua {      
-    }
-</style>
-
 <div ng-app="bcApp" ng-controller="bcCtrl">
     <h2>Trang báo cáo thông kê</h2>
     <hr />
+    <div style="margin-left: 2px; margin-right: 2px;">
     <div class="row">
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Từ ngày</div>
@@ -22,7 +18,7 @@
                 <input type="date" class="form-control" ng-model="NgayStart">
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Đến ngày</div>
@@ -31,7 +27,7 @@
                 <input type="date" class="form-control" ng-model="NgayStop">
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Phí công chứng</div>
@@ -40,7 +36,7 @@
                 <input class="form-control" type="number" ng-model="PhiCongChung">
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Phí hoa hồng</div>
@@ -49,7 +45,7 @@
                 <input class="form-control" type="number" ng-model="PhiHoaHong">
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Thông tin bên A</div>
@@ -58,7 +54,7 @@
                 <input class="form-control" type="text" ng-model="InforA">
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Thông tin bên B</div>
@@ -69,7 +65,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Loại công chứng</div>
@@ -86,7 +82,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Nhân viên thực hiện</div>
@@ -103,7 +99,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Công chứng viên</div>
@@ -120,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Khách hàng</div>
@@ -137,7 +133,7 @@
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col div-form">
             <div class="form-group">
                 <div class="row">
                     <div class="col">Nội dung thực hiện</div>
@@ -148,55 +144,52 @@
         </div>
     </div>
     <div class="d-flex bd-highlight mb-3">
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-warning" ng-click="ChucNang()">Bật/Tắt chức năng</button></div>
         <div class="p-2 bd-highlight"><button type="button" class="btn btn-success" ng-click="SelectAll()">Chọn tất cả</button></div>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị/Đóng kết quả</button></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị kết quả</button></div>
+        <div class="p-2 bd-highlight"><button type="button" class="btn btn-secondary" ng-click="TatKetQua()">Tắt kết quả</button></div>
         <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="ExcelExport()">Xuất báo cáo</button></div>
+    </div>
     </div>
     <hr />
     <div ng-show="isKetQua">
         <h3>Kết quả</h3>
-        <table class="table table-striped">
-            <thread>
-                <th scope="col">STT</th>
-                <th scope="col" ng-show="isNgayStart || isNgayStop">Ngày công chứng</th>
-                <th scope="col" ng-show="isInforA">Thông tin bên A</th>
-                <th scope="col" ng-show="isInforB">Thông tin bên B</th>
-                <th scope="col" ng-show="isIDType">Loại công chứng</th>
-                <th scope="col" ng-show="isContentCongChung">Nội dung công chứng</th>
-                <th scope="col" ng-show="isPhiCongChung">Phí công chứng</th>
-                <th scope="col" ng-show="isPhiHoaHong">Phí hoa hồng</th>
-                <th scope="col" ng-show="isIDKhachHang">Khách hàng</th>
-                <th scope="col" ng-show="isIDCongChungVien">Công chứng viên</th>
-                <th scope="col" ng-show="isIDNhanVien">Nhân viên làm</th>
-                <th scope="col" ng-show="isChucNang">Chức năng</th>
-            </thread>
-            <tbody>
-                <tr ng-repeat="item in list_CongChung">
-                    <th scope="row">{{$index+1}}</th>
-                    <td ng-show="isNgayStart || isNgayStop">{{item.NgayTao | date:"dd/MM/yyyy"}}</td>
-                    <td ng-show="isInforA">{{item.InforA}}</td>
-                    <td ng-show="isInforB">{{item.InforB}}</td>
-                    <td ng-show="isIDType">{{item.TypeCC}}</td>
-                    <td ng-show="isContentCongChung">{{item.ContentCongChung}}</td>
-                    <td ng-show="isPhiCongChung">{{item.PhiCongChung}}</td>
-                    <td ng-show="isPhiHoaHong">{{item.PhiHoaHong}}</td>
-                    <td ng-show="isIDKhachHang">{{item.TenKhachHang}}</td>
-                    <td ng-show="isIDCongChungVien">{{item.FullNameCCV}}</td>
-                    <td ng-show="isIDNhanVien">{{item.FullNameNV}}</td>
-                    <td ng-show="isChucNang">
-                        @*<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
-                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>*@
-                        <a href="/Home/Index?id={{item.IDCongChung}}">Sửa</a>
-                        <a class="text-danger" href="">Xóa</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="MyTable">
+            <table class="table table-striped">
+                <thread>
+                    <th scope="col">STT</th>
+                    <th scope="col" ng-show="isNgayStart || isNgayStop">Ngày công chứng</th>
+                    <th scope="col" ng-show="isInforA">Thông tin bên A</th>
+                    <th scope="col" ng-show="isInforB">Thông tin bên B</th>
+                    <th scope="col" ng-show="isIDType">Loại công chứng</th>
+                    <th scope="col" ng-show="isContentCongChung">Nội dung công chứng</th>
+                    <th scope="col" ng-show="isPhiCongChung">Phí công chứng</th>
+                    <th scope="col" ng-show="isPhiHoaHong">Phí hoa hồng</th>
+                    <th scope="col" ng-show="isIDKhachHang">Khách hàng</th>
+                    <th scope="col" ng-show="isIDCongChungVien">Công chứng viên</th>
+                    <th scope="col" ng-show="isIDNhanVien">Nhân viên làm</th>
+                </thread>
+                <tbody>
+                    <tr ng-repeat="item in list_CongChung">
+                        <th scope="row">{{$index+1}}</th>
+                        <td ng-show="isNgayStart || isNgayStop">{{item.NgayTao | date:"dd/MM/yyyy"}}</td>
+                        <td ng-show="isInforA">{{item.InforA}}</td>
+                        <td ng-show="isInforB">{{item.InforB}}</td>
+                        <td ng-show="isIDType">{{item.TypeCC}}</td>
+                        <td ng-show="isContentCongChung">{{item.ContentCongChung}}</td>
+                        <td ng-show="isPhiCongChung">{{item.PhiCongChung}}</td>
+                        <td ng-show="isPhiHoaHong">{{item.PhiHoaHong}}</td>
+                        <td ng-show="isIDKhachHang">{{item.TenKhachHang}}</td>
+                        <td ng-show="isIDCongChungVien">{{item.FullNameCCV}}</td>
+                        <td ng-show="isIDNhanVien">{{item.FullNameNV}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <script src="~/Asses/js/angular.min.js"></script>
+<script src="~/Asses/js/FileSaver.min.js"></script>
 
 <script>
     var myApp = angular.module('bcApp', []);
@@ -240,7 +233,6 @@
         $scope.isIDKhachHang = false;
         $scope.isIDCongChungVien = false;
         $scope.isKetQua = false;
-        $scope.isChucNang = false;
         
         var parseDate = function (value) {
             if (value) {
@@ -392,15 +384,19 @@
         }
 
         $scope.ExcelExport = function () {
-            $scope.isKetQua = true;
+            console.log("Excel Export");
+            var blob = new Blob([document.getElementById('MyTable').innerHTML], {
+                type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
+            });
+            saveAs(blob, "MyTable.xls");
         }
 
-        $scope.ChucNang = function () {
-            $scope.isChucNang = !$scope.isChucNang;
+        $scope.TatKetQua = function () {
+            $scope.isKetQua = false;
         }
 
         $scope.KetQua = function () {
-            $scope.isKetQua = !$scope.isKetQua;
+            $scope.isKetQua = true;
             if (!$scope.isNgayStart) {
                 $scope.NgayStart = "";
             }
