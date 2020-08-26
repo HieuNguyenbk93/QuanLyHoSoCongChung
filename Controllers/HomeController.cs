@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Syncfusion.XlsIO;
 
 namespace QuanLyHoSoCongChung.Controllers
 {
@@ -114,6 +115,20 @@ namespace QuanLyHoSoCongChung.Controllers
             else
             {
                 return "Not delete";
+            }
+        }
+
+        public void CreateDocument()
+        {
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel97to2003;
+                IWorkbook workbook = excelEngine.Excel.Workbooks.Create(1);
+                IWorksheet worksheet = workbook.Worksheets[0];
+                worksheet.Range["A1"].Text = "Hello World";
+                worksheet.Range["A1"].WrapText = true;
+                worksheet.Range["A2"].Text = "Hello World2";
+                workbook.SaveAs("Sample.xlsx", ExcelSaveType.SaveAsXLS, HttpContext.ApplicationInstance.Response, ExcelDownloadType.Open);
             }
         }
     }

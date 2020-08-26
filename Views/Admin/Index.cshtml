@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div ng-app="adApp" ng-controller="adCtrl">
+        <h2>Trang quản lý người dùng</h2>
+        <h3>Đăng ký thành viên</h3>
+        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show('');">Sửa</button>
+
+        <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" ng-show="ID_NhanVien == null">Thêm mới tài khoản</h5>
+                        @*<h5 class="modal-title" ng-show="ID_NhanVien != null">Sửa nhân viên</h5>*@
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @*<div class="profile-info-row">
+                            <div class="profile-info-name">Tên đăng nhập<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="text" class="form-control" id="Ten" ng-model="Email" tabindex="2">
+                                
+                            </div>
+                            <div class="profile-info-name">Password<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="password" class="form-control" ng-model="Password" tabindex="2">
+                                
+                            </div>
+                            <div class="profile-info-name">Nhập lại Password<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="text" class="form-control" ng-model="ConfirmPassword" tabindex="2">
+                                
+                            </div>
+                        </div>*@
+                        <form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập email" ng-model="Email" />
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" placeholder="Nhập password" ng-model="Password">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Confirm Password</label>
+                                <input type="password" class="form-control" placeholder="Nhập lại password" ng-model="ConfirmPassword">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thêm mới</button>
+                        <button type="button" class="btn btn-primary" ng-click="Register()">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="~/Asses/js/angular.min.js"></script>
+
+<script>
+    var myApp = angular.module('adApp', []);
+    myApp.controller('adCtrl', function ($scope, $q, $http, $timeout) {
+        $scope.User = {};
+        $scope.Register = function () {
+            $scope.User.Email = $scope.Email;
+            $scope.User.Password = $scope.Password;
+            $scope.User.ConfirmPassword = $scope.ConfirmPassword;
+            console.log($scope.User);
+        }
+    })
+</script>
+
