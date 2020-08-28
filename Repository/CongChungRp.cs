@@ -23,10 +23,13 @@ namespace QuanLyHoSoCongChung.Repository
             return data;
         }
 
-        public List<CongChungGet> CongChung_GetNew (int count)
+        public List<CongChungGet> CongChung_GetNew (int count, int role, int id)
         {
-            var data = _context.Database.SqlQuery<CongChungGet>("CongChung_GetNew @count",
-                new SqlParameter("@count", count)).ToList();
+            var data = _context.Database.SqlQuery<CongChungGet>("CongChung_GetNew @count, @id, @role",
+                new SqlParameter("@count", count),
+                new SqlParameter("@id", id),
+                new SqlParameter("@role", role)
+                ).ToList();
             return data;
         }
 

@@ -14,15 +14,111 @@ namespace QuanLyHoSoCongChung.Controllers
         GenericRepository<CongChungVien> _contextCCV = null;
         GenericRepository<KhachHang> _contextKH = null;
         GenericRepository<LoaiCongChung> _contextLCC = null;
+        GenericRepository<AccountNhanVien> _contextAcc = null;
         private NhanVienRp _obj = new NhanVienRp();
         private CongChungVienRp _objCCV = new CongChungVienRp();
         private KhachHangRp _objKH = new KhachHangRp();
         private LoaiCongChungRp _objLCC = new LoaiCongChungRp();
+        private AccNhanVienRp _objANV = new AccNhanVienRp();
 
         // GET: DanhMuc
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Get_Role()
+        {
+            List<Role> result = _objANV.Role_GetList();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AccountNhanVien()
+        {
+            var session = Session["UserID"];
+            var role = Session["Role"];
+            var name = Session["UserName"];
+            ViewBag.User = name;
+            ViewBag.Role = role;
+            return View();
+            //if (session != null)
+            //{
+            //    var role = Session["Role"].ToString();
+            //    if (role == "1")
+            //    {
+            //        ViewBag.User = name;
+            //        return View();
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Login", "Admin");
+            //    }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Login", "Admin");
+            //}
+        }
+        public ActionResult Get_AccNhanVien(int pageSize, int pageIndex, string strTen)
+        {
+            List<AccountNhanVienGet> result = _objANV.AccNhanVien_GetList(pageSize, pageIndex, strTen);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public string Insert_AccNhanVien(AccountNhanVien model)
+        {
+            _contextAcc = new GenericRepository<AccountNhanVien>();
+            if (model != null)
+            {
+                AccountNhanVien nv = new AccountNhanVien();
+                nv.Email = model.Email;
+                nv.Password = model.Password;
+                nv.FullName = model.FullName;
+                nv.Phone = model.Phone;
+                nv.Role = model.Role;
+                _contextAcc.Insert(nv);
+                _contextAcc.Save();
+                return "Successfully";
+            }
+            else
+            {
+                return "Not Inserted";
+            }
+        }
+        public string Update_AccNhanVien(AccountNhanVien model)
+        {
+            _contextAcc = new GenericRepository<AccountNhanVien>();
+            if (model != null)
+            {
+                AccountNhanVien nv = new AccountNhanVien();
+                nv.ID = model.ID;
+                nv.Email = model.Email;
+                nv.Password = model.Password;
+                nv.FullName = model.FullName;
+                nv.Phone = model.Phone;
+                nv.Role = model.Role;
+                _contextAcc.Update(nv);
+                _contextAcc.Save();
+                return "Successfully";
+            }
+            else
+            {
+                return "Not edit";
+            }
+        }
+        public string Delete_AccNhanVien(AccountNhanVien model)
+        {
+            _contextAcc = new GenericRepository<AccountNhanVien>();
+            if (model != null)
+            {
+                int x = model.ID;
+                _contextAcc.Delete(x);
+                _contextAcc.Save();
+                return "Successfully";
+            }
+            else
+            {
+                return "Not delete";
+            }
         }
 
         public ActionResult NhanVien()
@@ -98,6 +194,9 @@ namespace QuanLyHoSoCongChung.Controllers
 
         public ActionResult KhachHang()
         {
+            var session = Session["UserID"];
+            var name = Session["UserName"];
+            ViewBag.User = name;
             return View();
         }
 
@@ -163,6 +262,9 @@ namespace QuanLyHoSoCongChung.Controllers
 
         public ActionResult CongChungVien()
         {
+            var session = Session["UserID"];
+            var name = Session["UserName"];
+            ViewBag.User = name;
             return View();
         }
 
@@ -226,6 +328,9 @@ namespace QuanLyHoSoCongChung.Controllers
 
         public ActionResult LoaiCongChung()
         {
+            var session = Session["UserID"];
+            var name = Session["UserName"];
+            ViewBag.User = name;
             return View();
         }
 

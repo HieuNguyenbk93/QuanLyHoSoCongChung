@@ -41,7 +41,7 @@ namespace QuanLyHoSoCongChung.Models
         public int IDCongChungVien { get; set; }
         public string FullNameCCV { get; set; }
         public int IDNhanVien { get; set; }
-        public string FullNameNV { get; set; }
+        public string FullName { get; set; }
         public DateTime NgayTao { get; set; }
     }
 }

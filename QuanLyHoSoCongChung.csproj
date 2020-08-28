@@ -184,6 +184,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AccountNhanVien.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CongChung.cs" />
     <Compile Include="Models\CongChungVien.cs" />
@@ -193,7 +194,9 @@
     <Compile Include="Models\LoaiCongChung.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NhanVien.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AccNhanVienRp.cs" />
     <Compile Include="Repository\CongChungRp.cs" />
     <Compile Include="Repository\CongChungVienRp.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
@@ -325,7 +328,8 @@
     <Content Include="Views\DanhMuc\CongChungVien.cshtml" />
     <Content Include="Views\DanhMuc\LoaiCongChung.cshtml" />
     <Content Include="Views\Home\BaoCao.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\DanhMuc\AccountNhanVien.cshtml" />
+    <Content Include="Views\Admin\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

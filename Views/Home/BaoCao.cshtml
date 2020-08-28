@@ -151,7 +151,7 @@
         <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị kết quả</button></div>
         <div class="p-2 bd-highlight"><button type="button" class="btn btn-secondary" ng-click="TatKetQua()">Tắt kết quả</button></div>
         <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="ExcelExport()">Xuất báo cáo</button></div>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="CreateExcel()">Xuất thử báo cáo</button></div>
+        @*<div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="CreateExcel()">Xuất thử báo cáo</button></div>*@
     </div>
     </div>
     <hr />
@@ -180,11 +180,11 @@
                         <td ng-show="isInforB">{{item.InforB}}</td>
                         <td ng-show="isIDType">{{item.TypeCC}}</td>
                         <td ng-show="isContentCongChung">{{item.ContentCongChung}}</td>
-                        <td ng-show="isPhiCongChung">{{item.PhiCongChung}}</td>
-                        <td ng-show="isPhiHoaHong">{{item.PhiHoaHong}}</td>
+                        <td ng-show="isPhiCongChung">{{item.PhiCongChung | number}}</td>
+                        <td ng-show="isPhiHoaHong">{{item.PhiHoaHong | number}}</td>
                         <td ng-show="isIDKhachHang">{{item.TenKhachHang}}</td>
                         <td ng-show="isIDCongChungVien">{{item.FullNameCCV}}</td>
-                        <td ng-show="isIDNhanVien">{{item.FullNameNV}}</td>
+                        <td ng-show="isIDNhanVien">{{item.FullName}}</td>
                     </tr>
                 </tbody>
             </table>

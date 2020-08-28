@@ -9,6 +9,7 @@ namespace QuanLyHoSoCongChung.Models
     public class DbConnectContext : DbContext
     {
         public virtual DbSet<NhanVien> NhanViens { get; set; }
+        public virtual DbSet<AccountNhanVien> AccountNhanViens { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<CongChungVien> CongChungViens { get; set; }
         public virtual DbSet<LoaiCongChung> LoaiCongChungs { get; set; }

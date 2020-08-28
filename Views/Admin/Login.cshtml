@@ -1,0 +1,92 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/Asses/css/bootstrap.min.css"/>
+</head>
+<body>
+    <div ng-app="loginApp" ng-controller="loginCtrl">
+        <div class="container">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col shadow p-3 mb-5 bg-aliceblue rounded" style="background-color:aliceblue;margin-bottom:15px;margin-top:15px;">
+                    <h3 style="margin-top:5px;text-align:center">HỆ THỐNG QUẢN LÝ HỒ SƠ CÔNG CHỨNG</h3>
+                    <h5 style="text-align:center">Đăng nhập</h5>
+                    <form name="myForm">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Địa chỉ Email</label>
+                            <input type="email" class="form-control" placeholder="Enter email" name="input" ng-model="Email">
+                            <lable class="label-danger" ng-show='Email == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
+                            <lable class="label-danger" ng-show='myForm.input.$error.email' style="color:red"><small>(*)Email không đúng định dạng</small></lable>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Mật khẩu</label>
+                            <input type="password" class="form-control" placeholder="Password" ng-model="Password">
+                            <lable class="label-danger" ng-show='Password == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" ng-model="Remember">
+                            <label class="form-check-label" for="exampleCheck1">Ghi nhớ đăng nhập</label>
+                        </div>
+                        <button type="button" class="btn btn-primary" style="margin-bottom:5px;" ng-click="login()">Đăng nhập</button>
+                    </form>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Asses/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="~/Asses/js/popper.min.js"></script>
+    <script src="~/Asses/js/bootstrap.min.js"></script>
+    <script src="~/Asses/js/angular.min.js"></script>
+ 
+<script>
+    var myApp = angular.module('loginApp', []);
+    myApp.controller('loginCtrl', function ($scope, $q, $http, $timeout) {
+        $scope.NhanVien = {};
+        $scope.Email = "";
+        $scope.Password = "";
+        $scope.Remember = false;
+
+        $scope.login = function () {
+            $scope.NhanVien.Email = $scope.Email;
+            $scope.NhanVien.Password = $scope.Password;
+            $scope.NhanVien.Remember = $scope.Remember;
+            console.log($scope.Remember);
+            $http({
+                method: "get",
+                url: "/Admin/CheckLogin",
+                params: {
+                    email: $scope.Email,
+                    password: $scope.Password,
+                    remember: $scope.Remember
+                }
+            }).then(function (res) {
+                $('#myModal').modal('hide');
+                alert(res.data);
+                //var url = "http://" + $window.location.host + "/DanhMuc/NhanVien";
+                //$log.log(url);
+                //$window.location.href = url;
+                if (res.data == "Đăng nhập thành công") {
+                    window.location.href = '/Home/Index';
+                }
+                
+                //alert("Cập nhật thành công!");
+                //$scope.isAdd = false;
+                clearData();
+                init();
+            })
+        }
+    })
+</script>
+
+</body>
+</html>

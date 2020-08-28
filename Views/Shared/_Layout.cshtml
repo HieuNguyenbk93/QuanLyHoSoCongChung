@@ -61,7 +61,7 @@
                                     Danh mục
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:DodgerBlue">
-                                    <a class="dropdown-item" href="@Url.Action("NhanVien", "DanhMuc")">Nhân viên</a>
+                                    <a class="dropdown-item" href="@Url.Action("AccountNhanVien", "DanhMuc")">Nhân viên</a>
                                     <a class="dropdown-item" href="@Url.Action("KhachHang", "DanhMuc")">Khách hàng</a>
                                     <a class="dropdown-item" href="@Url.Action("CongChungVien", "DanhMuc")">Công chứng viên</a>
                                     <a class="dropdown-item" href="@Url.Action("LoaiCongChung", "DanhMuc")">Loại công chứng</a>
@@ -71,7 +71,25 @@
                             </li>
                             <li><a class="nav-link menu-a" href="@Url.Action("BaoCao", "Home")">Báo cáo</a></li>
                             <li><a class="nav-link menu-a" href="@Url.Action("Contact", "Home")">Liên hệ</a></li>
-                            <li><a class="nav-link active" style="background:#fff;color:#000;" href="contact.html">Tài khoản</a></li>
+                            @if (@ViewBag.User != null)
+                            {
+                                @*<li><a class="nav-link active" style="background:#fff;color:#000;" href="#">@ViewBag.User</a></li>*@
+                                <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle menu-a" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @ViewBag.User
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:DodgerBlue">
+                                    <a class="dropdown-item" href="@Url.Action("Logout", "Admin")">Đăng xuất</a>
+                                    <div class="dropdown-divider"></div>
+                                    @*<a class="dropdown-item" href="#">Something else here</a>*@
+                                </div>
+                            </li>
+                            }
+                            else
+                            {
+                                <li><a class="nav-link active" style="background:#fff;color:#000;" href="contact.html">Tài khoản</a></li>
+                            }
+
                         </ul>
                     </div>
                     @*<div class="search-box">

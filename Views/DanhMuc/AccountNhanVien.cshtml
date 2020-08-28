@@ -1,0 +1,329 @@
+﻿
+@{
+    ViewBag.Title = "AccountNhanVien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="anvApp" ng-controller="anvCtrl">
+    <div class="container">
+        <h2>Trang quản lý nhân viên</h2>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend" id="button-addon3">
+                        @if (ViewBag.Role == 1)
+                        {
+                            <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        }
+                        <button class="btn btn-outline-secondary" type="button" ng-click="reload()">Tìm kiếm</button>
+                    </div>
+                    <input type="text" class="form-control" ng-model="strTen" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
+                </div>
+            </div>
+        </div>
+        <div> Số nhân viên: {{countNhanVien}}</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">STT</th>
+                    <th scope="col">Email đăng ký</th>
+                    <th scope="col">Tên nhân viên</th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Quyền</th>
+                    @if (ViewBag.Role == 1)
+                    {
+                    <th scope="col">Thao tác</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in list_NhanVien">
+                    <th scope="row">{{$index+1}}</th>
+                    <td>{{item.Email}}</td>
+                    <td>{{item.FullName}}</td>
+                    <td>{{item.Phone}}</td>
+                    <td>
+                        <label ng-show="item.Role == 1">Admin</label>
+                        <label ng-show="item.Role == 2">User</label>
+                    </td>
+                    @if (ViewBag.Role == 1)
+                    {
+                    <td>
+                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
+                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
+                    </td>
+                    }
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" ng-show="ID_NhanVien == 0">Thêm mới nhân viên</h5>
+                    <h5 class="modal-title" ng-show="ID_NhanVien != 0">Sửa nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form name="myForm">
+                        <div class="profile-info-row">
+                            <div class="profile-info-name">Email nhân viên<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="text" class="form-control input-sm" id="Email" ng-model="Email_NhanVien" tabindex="2">
+                                <lable class="label-danger" ng-show='Email == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
+                                <lable class="label-danger" ng-show='myForm.input.$error.email' style="color:red"><small>(*)Email không đúng định dạng</small></lable>
+                            </div>
+                            <div class="profile-info-name">Password nhân viên<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="password" class="form-control input-sm" id="Password" ng-model="Password_NhanVien" tabindex="2">
+                                @*<label class="help-block" id="lblTen" style="display: none"></label>*@
+                            </div>
+                            <div class="profile-info-name">Tên nhân viên<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="text" class="form-control input-sm" id="Ten" ng-model="Ten_NhanVien" tabindex="2">
+                                @*<label class="help-block" id="lblTen" style="display: none"></label>*@
+                            </div>
+                            <div class="profile-info-name">Số điện thoại nhân viên<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-value">
+                                <input type="text" class="form-control input-sm" id="Sdt" ng-model="Sdt_NhanVien" tabindex="2">
+                                <label class="help-block" id="lblSdt" style="display: none"></label>
+                            </div>
+                            <div class="profile-info-name">Phân quyền<i style="color: red">(*)</i>:</div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameRole">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" ng-repeat="ro in list_Role" value="{{ro.ID}}" href="#" ng-click="getRo(ro)">{{ro.NameRole}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_NhanVien()">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirm-delete" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xóa nhân viên</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xóa nhân viên: <strong class="red">{{NhanVien.FullNameNV}}</strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" ng-click="Delete_NhanVien()">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Asses/js/angular.min.js"></script>
+
+<script>
+        var myApp = angular.module('anvApp', []);
+        myApp.controller('anvCtrl', function ($scope, $q, $http, $timeout) {
+
+            $scope.strTen = "";
+            $scope.countNhanVien = 0;
+
+            $scope.NhanVien = {};
+            $scope.ID_NhanVien = 0;
+            $scope.Email_NhanVien = "";
+            $scope.Password_NhanVien = "";
+            $scope.Ten_NhanVien = "";
+            $scope.Sdt_NhanVien = "";
+            $scope.NgayTao = "";
+            $scope.IDRole = 2;
+            $scope.NameRole = "User";
+
+            $scope.list_NhanVien = [];
+            $scope.list_Role = [];
+
+            var getInit = function () {
+                return $http({
+                    method: "POST",
+                    url: "/DanhMuc/Count_NhanVien",
+                    data: {
+                        DieuKien: 5,
+                    }
+                });
+            }
+
+            var getRole = function () {
+                return $http({
+                    method: "GET",
+                    url: "/DanhMuc/Get_Role"
+                });
+            }
+
+            var getNhanVien = function () {
+                return $http({
+                    method: "GET",
+                    url: "/DanhMuc/Get_AccNhanVien",
+                    params: {
+                        pageSize: 1000,
+                        pageIndex: 1,
+                        strTen: $scope.strTen
+                    }
+                });
+            }
+
+            var init = function () {
+                getInit().then(function (res) {
+                    $scope.countNhanVien = res.data;
+                });
+
+                getNhanVien().then(function (res) {
+                    $scope.list_NhanVien = res.data;
+                    //console.log($scope.list_NhanVien);
+                });
+
+                getRole().then(function (res) {
+                    $scope.list_Role = res.data;
+                })
+            }
+
+            init();
+
+            var clearData = function () {
+                $scope.Email_NhanVien = "";
+                $scope.Password_NhanVien = "";
+                $scope.Ten_NhanVien = "";
+                $scope.Sdt_NhanVien = "";
+                $scope.NhanVien = {};
+            }
+
+            $scope.reload = function () {
+                $scope.Email_NhanVien = "";
+                $scope.Password_NhanVien = "";
+                $scope.Ten_NhanVien = "";
+                $scope.Sdt_NhanVien = "";
+                $scope.NhanVien = {};
+                init();
+            }
+
+            $scope.getRo = function (obj) {
+                $scope.NameRole = obj.NameRole;
+                $scope.IDRole = obj.ID;
+                console.log(obj);
+            }
+
+            $scope.show = function (objPB) {
+                if (objPB.ID != null) {
+                    //console.log("Sửa---");
+                    $scope.ID_NhanVien = objPB.ID;
+                    $scope.Email_NhanVien = objPB.Email;
+                    $scope.Password_NhanVien = objPB.Password;
+                    $scope.Ten_NhanVien = objPB.FullName;
+                    $scope.Sdt_NhanVien = objPB.Phone;
+                    $scope.IDRole = objPB.Role;
+                    $scope.NameRole = objPB.NameRole;
+                }
+                else {
+                    $scope.ID_NhanVien = 0;
+                    $scope.Email_NhanVien = "";
+                    $scope.Password_NhanVien = "";
+                    $scope.Ten_NhanVien = "";
+                    $scope.Sdt_NhanVien = "";
+                    $scope.IDRole = 2;
+                }
+                console.log($scope.ID_NhanVien);
+                console.log($scope.IDRole);
+            }
+
+            $scope.Save_NhanVien = function () {
+                if ($scope.ID_NhanVien == 0 || $scope.ID_NhanVien == null) {
+                    $scope.NhanVien = {};
+                    $scope.NhanVien.Email = $scope.Email_NhanVien;
+                    $scope.NhanVien.Password = $scope.Password_NhanVien;
+                    $scope.NhanVien.FullName = $scope.Ten_NhanVien;
+                    $scope.NhanVien.Phone = $scope.Sdt_NhanVien;
+                    $scope.NhanVien.Role = $scope.IDRole;
+                    console.log($scope.NhanVien);
+                    $http({                                 // Thêm nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Insert_AccNhanVien",
+                        datatype: "json",
+                        data: JSON.stringify($scope.NhanVien),
+                    }).then(function (res) {
+                        $('#myModal').modal('hide');
+                        //alert(res.data);
+                        alert("Tạo mới thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+                else {
+                    //console.log("Sửa nhân viên");
+                    $scope.NhanVien = {};
+                    $scope.NhanVien.ID = $scope.ID_NhanVien;
+                    $scope.NhanVien.Email = $scope.Email_NhanVien;
+                    $scope.NhanVien.Password = $scope.Password_NhanVien
+                    $scope.NhanVien.FullName = $scope.Ten_NhanVien;
+                    $scope.NhanVien.Phone = $scope.Sdt_NhanVien;
+                    $scope.NhanVien.Role = $scope.IDRole;
+                    console.log($scope.NhanVien);
+                    $http({                                 // Sửa thông tin nhân viên
+                        method: "post",
+                        url: "/DanhMuc/Update_AccNhanVien",
+                        datatype: "json",
+                        data: JSON.stringify($scope.NhanVien),
+                    }).then(function (res) {
+                        //console.log(res.data);
+                        $('#myModal').modal('hide');
+                        alert("Sửa thành thành công!");
+                        clearData();
+                        init();
+                    })
+                }
+            }
+
+            $scope.getID = function (objNhanVien) {
+                $scope.NhanVien.ID = objNhanVien.ID;
+                $scope.NhanVien.Email = objNhanVien.Email;
+                $scope.NhanVien.Password = objNhanVien.Password;
+                $scope.NhanVien.FullName = objNhanVien.FullName;
+                $scope.NhanVien.Phone = objNhanVien.Phone;
+                $scope.NhanVien.Role = objNhanVien.Role;
+            }
+
+            $scope.Delete_NhanVien = function () {
+                $http({
+                    method: "post",
+                    url: "/DanhMuc/Delete_AccNhanVien",
+                    datatype: "json",
+                    data: JSON.stringify($scope.NhanVien),
+                }).then(function (res) {
+                    $('#confirm-delete').modal('hide');
+                    alert("Xóa thành thành công!");
+                    clearData();
+                    init();
+                })
+            }
+
+        });
+</script>
+
+
+
