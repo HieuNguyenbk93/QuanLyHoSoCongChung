@@ -12,7 +12,11 @@
             <div class="col">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend" id="button-addon3">
-                        <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        @if (ViewBag.Role == 1)
+                        {
+                            <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        }
+
                         <button class="btn btn-outline-secondary" type="button" ng-click="reload()">Tìm kiếm</button>
                     </div>
                     <input type="text" class="form-control" ng-model="strTen" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
@@ -26,7 +30,11 @@
                     <th scope="col">STT</th>
                     <th scope="col">Ký hiệu loại công chứng</th>
                     <th scope="col">Tên loại công chứng</th>
-                    <th scope="col">Thao tác</th>
+                    @if (ViewBag.Role == 1)
+                    {
+                        <th scope="col">Thao tác</th>
+                    }
+
                 </tr>
             </thead>
             <tbody>
@@ -34,10 +42,14 @@
                     <th scope="row">{{$index+1}}</th>
                     <td>{{item.TypeCC}}</td>
                     <td>{{item.NameType}}</td>
-                    <td>
-                        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
-                        <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
-                    </td>
+                    @if (ViewBag.Role == 1)
+                    {
+                        <td>
+                            <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
+                            <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
+                        </td>
+                    }
+
                 </tr>
             </tbody>
         </table>
@@ -47,8 +59,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" ng-show="ID_lcc == 0">Thêm mới nhân viên</h5>
-                    <h5 class="modal-title" ng-show="ID_lcc != 0">Sửa nhân viên</h5>
+                    <h5 class="modal-title" ng-show="ID_lcc == 0">Thêm mới loại công chứng</h5>
+                    <h5 class="modal-title" ng-show="ID_lcc != 0">Sửa loại công chứng</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -58,19 +70,19 @@
                         <div class="profile-info-name">Ký hiệu loại việc công chứng<i style="color: red">(*)</i>:</div>
                         <div class="profile-info-value">
                             <input type="text" class="form-control input-sm" id="Ten" ng-model="Type_lcc" tabindex="2">
-                            <label class="help-block" id="lblTen" style="display: none"></label>
+                            <lable class="label-danger" ng-show='Type_lcc == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                         </div>
                         <div class="profile-info-name">Tên loại việc công chứng<i style="color: red">(*)</i>:</div>
                         <div class="profile-info-value">
                             <input type="text" class="form-control input-sm" id="Sdt" ng-model="Name_lcc" tabindex="2">
-                            <label class="help-block" id="lblSdt" style="display: none"></label>
+                            <lable class="label-danger" ng-show='Name_lcc == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                         </div>
 
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="Save_lcc()">Lưu</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_lcc()" ng-disabled='Type_lcc == ""||Name_lcc == ""'>Lưu</button>
                 </div>
             </div>
         </div>
@@ -192,8 +204,7 @@
                         data: JSON.stringify($scope.lcc),
                     }).then(function (res) {
                         $('#myModal').modal('hide');
-                        //alert(res.data);
-                        alert("Tạo mới thành công!");
+                        alert(res.data);
                         clearData();
                         init();
                     })
@@ -212,7 +223,7 @@
                     }).then(function (res) {
                         //console.log(res.data);
                         $('#myModal').modal('hide');
-                        alert("Sửa thành thành công!");
+                        alert(res.data);
                         clearData();
                         init();
                     })
@@ -233,7 +244,7 @@
                     data: JSON.stringify($scope.lcc),
                 }).then(function (res) {
                     $('#confirm-delete').modal('hide');
-                    alert("Xóa thành thành công!");
+                    alert(res.data);
                     clearData();
                     init();
                 })

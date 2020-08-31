@@ -8,151 +8,157 @@
     <h2>Trang báo cáo thông kê</h2>
     <hr />
     <div style="margin-left: 2px; margin-right: 2px;">
-    <div class="row">
-        <div class="col-2 div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Từ ngày</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isNgayStart"></div>
+        <div class="row">
+            <div class="col-2 div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Từ ngày</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isNgayStart"></div>
+                    </div>
+                    <input type="date" class="form-control" ng-model="NgayStart">
                 </div>
-                <input type="date" class="form-control" ng-model="NgayStart">
+            </div>
+            <div class="col-2 div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Đến ngày</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isNgayStop"></div>
+                    </div>
+                    <input type="date" class="form-control" ng-model="NgayStop">
+                    @*<div class="input-group form-group-option date date-picker">
+                        <input id="txtNgayCap" class=" form-control date-picker" ng-model="DonThu.NgayCap" type="text">
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                    </div>*@
+                </div>
+            </div>
+            <div class="col-2 div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Phí công chứng</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isPhiCongChung"></div>
+                    </div>
+                    <input class="form-control" type="number" ng-model="PhiCongChung">
+                </div>
+            </div>
+            <div class="col-2 div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Phí hoa hồng</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isPhiHoaHong"></div>
+                    </div>
+                    <input class="form-control" type="number" ng-model="PhiHoaHong">
+                </div>
+            </div>
+            <div class="col-2 div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Thông tin bên A</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isInforA"></div>
+                    </div>
+                    @*<input class="form-control" type="text" ng-model="InforA">*@
+                    <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforA"></textarea>
+                </div>
+            </div>
+            <div class="col-2 div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Thông tin bên B</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isInforB"></div>
+                    </div>
+                    @*<input class="form-control" type="text" ng-model="InforB">*@
+                    <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforB"></textarea>
+                </div>
             </div>
         </div>
-        <div class="col-2 div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Đến ngày</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isNgayStop"></div>
-                </div>
-                <input type="date" class="form-control" ng-model="NgayStop">
-            </div>
-        </div>
-        <div class="col-2 div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Phí công chứng</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isPhiCongChung"></div>
-                </div>
-                <input class="form-control" type="number" ng-model="PhiCongChung">
-            </div>
-        </div>
-        <div class="col-2 div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Phí hoa hồng</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isPhiHoaHong"></div>
-                </div>
-                <input class="form-control" type="number" ng-model="PhiHoaHong">
-            </div>
-        </div>
-        <div class="col-2 div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Thông tin bên A</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isInforA"></div>
-                </div>
-                @*<input class="form-control" type="text" ng-model="InforA">*@
-                <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforA"></textarea>
-            </div>
-        </div>
-        <div class="col-2 div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Thông tin bên B</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isInforB"></div>
-                </div>
-                @*<input class="form-control" type="text" ng-model="InforB">*@
-                <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforB"></textarea>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Loại công chứng</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDType"></div>
-                </div>
-                <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
+        <div class="row">
+            <div class="col div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Loại công chứng</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDType"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Nhân viên thực hiện</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDNhanVien"></div>
-                </div>
-                <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
+            <div class="col div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Nhân viên thực hiện</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDNhanVien"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.ID}}" href="#" ng-click="getNv(nv)">{{nv.FullName}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Công chứng viên</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDCongChungVien"></div>
-                </div>
-                <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
+            <div class="col div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Công chứng viên</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDCongChungVien"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Khách hàng</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDKhachHang"></div>
-                </div>
-                <div class="input-group">
-                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
+            <div class="col div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Khách hàng</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isIDKhachHang"></div>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col div-form">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">Nội dung thực hiện</div>
-                    <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isContentCongChung"></div>
+            <div class="col div-form">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">Nội dung thực hiện</div>
+                        <div class="col-2"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" ng-model="isContentCongChung"></div>
+                    </div>
+                    @*<input class="form-control" type="text" ng-model="ContentCongChung">*@
+                    <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="ContentCongChung"></textarea>
                 </div>
-                @*<input class="form-control" type="text" ng-model="ContentCongChung">*@
-                <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="ContentCongChung"></textarea>
             </div>
         </div>
-    </div>
-    <div class="d-flex bd-highlight mb-3">
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-success" ng-click="SelectAll()">Chọn tất cả</button></div>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị kết quả</button></div>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-secondary" ng-click="TatKetQua()">Tắt kết quả</button></div>
-        <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="ExcelExport()">Xuất báo cáo</button></div>
-        @*<div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="CreateExcel()">Xuất thử báo cáo</button></div>*@
-    </div>
+        <div class="d-flex bd-highlight mb-3">
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-success" ng-click="SelectAll()">Chọn tất cả</button></div>
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị kết quả</button></div>
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-secondary" ng-click="TatKetQua()">Tắt kết quả</button></div>
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="ExcelExport()">Xuất báo cáo</button></div>
+            @*<div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="CreateExcel()">Xuất thử báo cáo</button></div>*@
+        </div>
     </div>
     <hr />
     <div ng-show="isKetQua">
@@ -175,7 +181,7 @@
                 <tbody>
                     <tr ng-repeat="item in list_CongChung">
                         <th scope="row">{{$index+1}}</th>
-                        <td ng-show="isNgayStart || isNgayStop">{{item.NgayTao | date:"dd/MM/yyyy"}}</td>
+                        <td ng-show="isNgayStart || isNgayStop">{{item.NgayTao | date:"MM/dd/yyyy"}}</td>
                         <td ng-show="isInforA">{{item.InforA}}</td>
                         <td ng-show="isInforB">{{item.InforB}}</td>
                         <td ng-show="isIDType">{{item.TypeCC}}</td>
@@ -194,6 +200,26 @@
 
 <script src="~/Asses/js/angular.min.js"></script>
 <script src="~/Asses/js/FileSaver.min.js"></script>
+
+<script src="~/Asses/datapicker/bootstrap-datepicker.min.js"></script>
+<script src="~/Asses/datapicker/bootstrap-timepicker.min.js"></script>
+<link href="~/Asses/datapicker/datepicker.min.css" rel="stylesheet" />
+<script>
+    $('.date-picker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: "dd/mm/yyyy"
+    });
+    $('#DateOfBirth').datepicker();
+    $(function () {
+        $('#Mobile').on('keydown', function (e) {
+            -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) || /65|67|86|88/.test(e.keyCode)
+                && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode
+                && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode)
+                && e.preventDefault();
+        });
+    });
+</script>
 
 <script>
     var myApp = angular.module('bcApp', []);
@@ -237,7 +263,7 @@
         $scope.isIDKhachHang = false;
         $scope.isIDCongChungVien = false;
         $scope.isKetQua = false;
-        
+
         var parseDate = function (value) {
             if (value) {
                 return new Date(parseInt(value.replace("/Date(", "").replace(")/", "")));
@@ -274,13 +300,13 @@
             $scope.PhiHoaHong = 0;
             $scope.IDKhachHang = 0;
             $scope.IDCongChungVien = 0;
-            //$scope.IDNhanVien = 0;
+            $scope.IDNhanVien = 0;
             $scope.CongChung = {};
 
             $scope.NameType = "";
             $scope.FullNameCCV = "";
-            //$scope.FullNameNV = "";
-            //$scope.NgayTao = "";
+            $scope.FullNameNV = "";
+            $scope.NgayTao = "";
         }
         var getlcc = function () {
             return $http({
@@ -321,7 +347,7 @@
         var getNhanVien = function () {
             return $http({
                 method: "GET",
-                url: "/DanhMuc/Get_NhanVien",
+                url: "/DanhMuc/Get_AccNhanVien",
                 params: {
                     pageSize: 1000,
                     pageIndex: 1,
@@ -353,14 +379,14 @@
         $scope.getLcc = function (obj) {
             $scope.NameType = obj.NameType;
             $scope.IDType = obj.IDType;
-            console.log(obj);
+            //console.log(obj);
         }
 
         $scope.getKh = function (obj) {
             $scope.TenKhachHang = obj.TenKhachHang;
             $scope.IDKhachHang = obj.IDKhachHang;
-            console.log(obj);
-            console.log($scope.TenKhachHang);
+            //console.log(obj);
+            //console.log($scope.TenKhachHang);
         }
 
         $scope.getCcv = function (obj) {
@@ -369,8 +395,8 @@
         }
 
         $scope.getNv = function (obj) {
-            $scope.FullNameNV = obj.FullNameNV;
-            $scope.IDNhanVien = obj.IDNhanVien;
+            $scope.FullNameNV = obj.FullName;
+            $scope.IDNhanVien = obj.ID;
         }
 
         $scope.SelectAll = function () {
@@ -388,7 +414,7 @@
         }
 
         $scope.ExcelExport = function () {
-            console.log("Excel Export");
+            //console.log("Excel Export");
             var blob = new Blob([document.getElementById('MyTable').innerHTML], {
                 type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
             });
@@ -409,6 +435,7 @@
 
         $scope.TatKetQua = function () {
             $scope.isKetQua = false;
+            clearData();
         }
 
         $scope.KetQua = function () {
@@ -420,7 +447,7 @@
                 $scope.NgayStop = "";
             }
             if (!$scope.isContentCongChung) {
-                $scope.ContentCongChung = "";   
+                $scope.ContentCongChung = "";
             }
             if (!$scope.isIDNhanVien) {
                 $scope.IDNhanVien = 0;
@@ -451,9 +478,9 @@
                     item.NgayTao = parseDate(item.NgayTao);
                 });
                 $scope.list_CongChung = res.data;
-                console.log(res.data);
+                //console.log(res.data);
             });
         }
-        
+
     })
 </script>

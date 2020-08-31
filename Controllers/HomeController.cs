@@ -47,7 +47,17 @@ namespace QuanLyHoSoCongChung.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Phòng giải pháp - Trung tâm Công Nghệ Thông Tin - Viễn Thông Bắc Ninh.";
-
+            var session = Session["UserID"];
+            if (session != null)
+            {
+                var role = Session["Role"];
+                var name = Session["UserName"];
+                //Response.Write(name);
+                ViewBag.Message = "Báo cáo thông kê";
+                ViewBag.User = name;
+                ViewBag.Role = role;
+                return View();
+            }
             return View();
         }
 
@@ -89,11 +99,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 }
                 _context.Insert(cc);
                 _context.Save();
-                return "Successfully";
+                return "Thêm mới thành công";
             }
             else
             {
-                return "Not edit";
+                return "Thêm mới thất bại";
             }
         }
 
@@ -107,11 +117,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 cc = model;
                 _context.Update(cc);
                 _context.Save();
-                return "Successfully";
+                return "Sửa thành công";
             }
             else
             {
-                return "Not edit";
+                return "Sửa thất bại";
             }
         }
 
@@ -119,6 +129,37 @@ namespace QuanLyHoSoCongChung.Controllers
         public ActionResult Get_CongChungById(int Id)
         {
             CongChungGet result = _obj.CongChung_Get(Id);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Get_CongChungAll(int pageIndex, int pageSize, string NgayStart, string NgayStop, string strInforA, string strInforB, int IDType, string strContent, int PhiCongChung, int PhiHoaHong, int IDKhachHang, int IDCongChungVien, int IDNhanVien)
+        {
+            var ssid = Session["UserID"];
+            var ssrole = Session["Role"];
+            int role = int.Parse(ssrole.ToString());
+            int id = int.Parse(ssid.ToString());
+            if (role != 1)
+            {
+                IDNhanVien = id;
+            }
+            if (NgayStart == null)
+            {
+                NgayStart = "";
+            }
+            if (NgayStop == null)
+            {
+                NgayStop = "";
+            }
+            if (strInforA == null)
+            {
+                strInforA = "";
+            }
+            if (strInforB == null)
+            {
+                strInforB = "";
+            }
+            pageIndex = (pageIndex-1) * pageSize;
+            List<CongChungGet> result = _obj.CongChung_GetListAll(pageIndex, pageSize, NgayStart, NgayStop, strInforA, strInforB, IDType, strContent, PhiCongChung, PhiHoaHong, IDKhachHang, IDCongChungVien, IDNhanVien);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -140,6 +181,14 @@ namespace QuanLyHoSoCongChung.Controllers
             if (NgayStop == null)
             {
                 NgayStop = "";
+            }
+            if (strInforA == null)
+            {
+                strInforA = "";
+            }
+            if (strInforB == null)
+            {
+                strInforB = "";
             }
 
             List<CongChungGet> result = _obj.CongChung_GetList(NgayStart, NgayStop, strInforA, strInforB, IDType, strContent, PhiCongChung, PhiHoaHong, IDKhachHang, IDCongChungVien, IDNhanVien);
@@ -164,11 +213,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 int x = model.IDCongChung;
                 _context.Delete(x);
                 _context.Save();
-                return "Successfully";
+                return "Xóa thành công";
             }
             else
             {
-                return "Not delete";
+                return "Xóa thất bại";
             }
         }
 

@@ -5,7 +5,7 @@
     <div ng-app="ccApp" ng-controller="ccCtrl">
         <div class="container">
             <div class="row">
-                <h3>Trang quản lý hồ sơ</h3>
+                <h2 style="padding-bottom:0px;">Trang quản lý hồ sơ</h2>
             </div>
             <div class="row">
                 <div class="col div-form">
@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col">Từ ngày</div>
                         </div>
-                        <input type="date" class="form-control" ng-model="NgayStart">
+                        <input type="date" class="form-control" ng-model="SNgayStart">
                     </div>
                 </div>
                 <div class="col div-form">
@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col">Đến ngày</div>
                         </div>
-                        <input type="date" class="form-control" ng-model="NgayStop">
+                        <input type="date" class="form-control" ng-model="SNgayStop">
                     </div>
                 </div>
                 <div class="col div-form">
@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col">Phí công chứng</div>
                         </div>
-                        <input class="form-control" type="number" ng-model="PhiCongChung">
+                        <input class="form-control" type="number" ng-model="SPhiCongChung">
                     </div>
                 </div>
                 <div class="col div-form">
@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col">Phí hoa hồng</div>
                         </div>
-                        <input class="form-control" type="number" ng-model="PhiHoaHong">
+                        <input class="form-control" type="number" ng-model="SPhiHoaHong">
                     </div>
                 </div>
                 <div class="col div-form">
@@ -45,7 +45,7 @@
                         <div class="row">
                             <div class="col">Thông tin bên A</div>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforA"></textarea>
+                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="SInforA"></textarea>
                     </div>
                 </div>
                 <div class="col div-form">
@@ -53,7 +53,7 @@
                         <div class="row">
                             <div class="col">Thông tin bên B</div>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="InforB"></textarea>
+                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="SInforB"></textarea>
                     </div>
                 </div>
             </div>
@@ -62,11 +62,11 @@
                     <div class="form-group">
                         <div class="col">Loại công chứng</div>
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="SNameType">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="getLcc(option)">{{option.TypeCC}}</a>
+                                    <a class="dropdown-item" ng-repeat="option in list_LoaiCongChung" value="{{option.IDType}}" href="#" ng-click="SgetLcc(option)">{{option.TypeCC}}</a>
                                 </div>
                             </div>
                         </div>
@@ -77,26 +77,14 @@
                         <div class="row">
                             <div class="col">Nhân viên thực hiện</div>
                         </div>
-                        @*<div class="input-group">
-                            <input type="text"  readonly class="form-control" aria-label="Text input with dropdown button" value="@ViewBag.User">
-                        </div>*@
-                        @*<div class="input-group">
-                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
-                                </div>
-                            </div>
-                        </div>*@
                         @if (ViewBag.Role == 1)
                             {
                                 <div class="input-group">
-                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
+                                    <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="SFullNameNV">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                          <div class="dropdown-menu">
-                                            <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.ID}}" href="#" ng-click="getNv(nv)">{{nv.FullName}}</a>
+                                            <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.ID}}" href="#" ng-click="SgetNv(nv)">{{nv.FullName}}</a>
                                          </div>
                                     </div>
                                 </div>
@@ -113,11 +101,11 @@
                     <div class="form-group">
                         <div class="col">Công chứng viên</div>
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="SFullNameCCV">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="getCcv(ccv)">{{ccv.FullNameCCV}}</a>
+                                    <a class="dropdown-item" ng-repeat="ccv in list_CongChungVien" value="{{ccv.IDCongChungVien}}" href="#" ng-click="SgetCcv(ccv)">{{ccv.FullNameCCV}}</a>
                                 </div>
                             </div>
                         </div>
@@ -129,11 +117,11 @@
                             <div class="col">Khách hàng</div>
                         </div>
                         <div class="input-group">
-                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="TenKhachHang">
+                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="STenKhachHang">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="getKh(kh)">{{kh.TenKhachHang}}</a>
+                                    <a class="dropdown-item" ng-repeat="kh in list_KhachHang" value="{{kh.IDKhachHang}}" href="#" ng-click="SgetKh(kh)">{{kh.TenKhachHang}}</a>
                                 </div>
                             </div>
                         </div>
@@ -144,27 +132,71 @@
                         <div class="row">
                             <div class="col">Nội dung công chứng</div>
                         </div>
-                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="ContentCongChung"></textarea>
+                        <textarea class="form-control" aria-label="With textarea" style="height:38px" ng-model="SContentCongChung"></textarea>
                     </div>
                 </div>
             </div>
             <div class="row d-flex flex-row-reverse bd-highlight">
+                <button type="button" class="btn btn-warning p-2 bd-highlight btn-sm" ng-click="XoaSearch()" style="margin-left: 5px;">Xóa thông số tìm kiếm</button>
                 <button type="button" class="btn btn-primary p-2 bd-highlight btn-sm" ng-click="KetQua()" style="margin-left: 5px;">Tìm kiếm</button>
-                <button type="button" class="btn btn-primary p-2 bd-highlight btn btn-success btn-sm" ng-click="show('')"  data-toggle="modal" data-target="#myModal">Thêm mới</button>
+                <button type="button" class="btn btn-success p-2 bd-highlight btn-sm" ng-click="show('')" data-toggle="modal" data-target="#myModal">Thêm mới</button>
             </div>
             <hr />
             <div class="row">
-                <h3 style="padding-right: 10px;padding-bottom: 5px;padding-top: 5px;">Thông tin hồ sơ gần nhất. Hiển thị</h3>
-                @*<span>Hiển thị</span>*@
-                <select ng-model="count" ng-change="reload()" ng-init="count='3'">
-                    <option value="3">3</option>
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                </select>
+                <h4 style="padding-right: 10px;padding-bottom: 0px;padding-top: 0px;margin-top:0px;">Thông tin hồ sơ</h4>
             </div>
-
-            <div class="row" style="font-size:13px">
+            <div class="row" style="margin-bottom:3px">
+                <div class="col d-flex align-items-center">
+                    <span>Tổng số {{row}} bản công chứng. </span><span style="margin-left:5px;margin-right:5px;">Hiển thị</span>
+                    <select ng-model="pageSize" ng-change="reload()" ng-init="pageSize='5'">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div class="col">
+                </div>
+                <div class="col" style="padding-right:0px;">
+                    <nav aria-label="Page navigation example" style="float:right;">
+                        <ul class="pagination">
+                            <li class="page-item" ng-class="{disabled: currentPage === 1}" ng-click="setPage(1)">
+                                <a class="page-link" href="#">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-bar-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M11.854 3.646a.5.5 0 0 1 0 .708L8.207 8l3.647 3.646a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 0 1 .708 0zM4.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 1 0v-13a.5.5 0 0 0-.5-.5z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="page-item" ng-class="{disabled: currentPage === 1}" ng-click="setPage(currentPage-1)">
+                                <a class="page-link" href="#">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-double-left" fill="currentColor" >
+                                        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="page-item" ng-class="{active: currentPage === page}" ng-repeat="page in list track by $index" ng-click="setPage(page)"><a class="page-link" href="#">{{page}}</a></li>
+                            <li class="page-item" ng-class="{disabled: currentPage === totalPage}" ng-click="setPage(currentPage+1)">
+                                <a class="page-link" href="#">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-double-right" fill="currentColor" >
+                                        <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+                                        <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li class="page-item" ng-class="{disabled: currentPage === totalPage}" ng-click="setPage(totalPage)">
+                                <a class="page-link" href="#">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-bar-right" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M4.146 3.646a.5.5 0 0 0 0 .708L7.793 8l-3.647 3.646a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708 0zM11.5 1a.5.5 0 0 1 .5.5v13a.5.5 0 0 1-1 0v-13a.5.5 0 0 1 .5-.5z" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <div class="row" ng-show="row == 0" style="color:red;font-size:30px;" >Không tìm thấy dữ liệu</div>
+            <div class="row" style="font-size:13px" ng-show="row != 0">
                 <table class="table table-striped">
                     <thread>
                         <th scope="col">STT</th>
@@ -179,8 +211,8 @@
                     </thread>
                     <tbody>
                         <tr ng-repeat="item in list_CongChung">
-                            <th scope="row">{{$index+1}}</th>
-                            <td>{{item.NgayTao | date:"dd/MM/yyyy"}}</td>
+                            <th scope="row">{{$index+1+pageSize*(currentPage-1)}}</th>
+                            <td>{{item.NgayTao | date:"MM/dd/yyyy"}}</td>
                             <td>{{item.TypeCC}}</td>
                             <td>{{item.PhiCongChung | number}}</td>
                             <td>{{item.PhiHoaHong| number}}</td>
@@ -214,14 +246,14 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="lable-bottom">Ngày công chứng</label>
+                                        <label class="lable-bottom">Ngày công chứng<i style="color: red">(*)</i>:</label>
                                         <input type="date" class="form-control" ng-model="NgayTao">
                                         <lable class="label-danger" ng-show='NgayTao == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="lable-bottom">Loại việc công chứng</label>
+                                        <label class="lable-bottom">Loại việc công chứng<i style="color: red">(*)</i>:</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="NameType">
                                             <div class="input-group-append">
@@ -237,7 +269,7 @@
                             </div>
                             <div class="row" style="padding-left:15px;padding-right:15px;margin-bottom: 10px;">
                                 @*<div class="form-group">*@
-                                    <label>Nội dung</label>
+                                    <label>Nội dung<i style="color: red">(*)</i>:</label>
                                     <textarea class="form-control" aria-label="With textarea" style="height:60px" ng-model="ContentCongChung"></textarea>
                                     <lable class="label-danger" ng-show='ContentCongChung == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>
                                 @*</div>*@
@@ -259,7 +291,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="lable-bottom">Công chứng viên ký</label>
+                                        <label class="lable-bottom">Công chứng viên ký<i style="color: red">(*)</i>:</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameCCV">
                                             <div class="input-group-append">
@@ -274,7 +306,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="lable-bottom">Nhân viên thực hiện</label>
+                                        <label class="lable-bottom">Nhân viên thực hiện<i style="color: red">(*)</i>:</label>
                                         @if (ViewBag.Role == 1)
                                         {
                                             <div class="input-group">
@@ -294,16 +326,6 @@
                                                 <input type="text" class="form-control" readonly value="@ViewBag.User"/>
                                             </div>
                                         }
-                                        @*<div class="input-group">
-                                            <input type="text" class="form-control" aria-label="Text input with dropdown button" ng-model="FullNameNV">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" ng-repeat="nv in list_NhanVien" value="{{nv.IDNhanVien}}" href="#" ng-click="getNv(nv)">{{nv.FullNameNV}}</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <lable class="label-danger" ng-show='FullNameNV == ""' style="color:red"><small>(*)Không được bỏ trống</small></lable>*@
                                     </div>
                                 </div>
                             </div>
@@ -312,7 +334,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <div class="form-group">
-                                                <label class="lable-bottom">Phí công chứng</label>
+                                                <label class="lable-bottom">Phí công chứng<i style="color: red">(*)</i>:</label>
                                                 <input type="number" class="form-control" ng-model="PhiCongChung">
                                                 <lable class="label-danger" ng-show='!PhiCongChung' style="color:red"><small>(*)Không được bỏ trống</small></lable>
                                             </div>
@@ -344,7 +366,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" ng-click="Save_CongChung()">Lưu</button>
+                        <button type="button" class="btn btn-primary" ng-click="Save_CongChung()" ng-disabled='NgayTao == ""||NameType == ""||ContentCongChung == ""||FullNameCCV == ""||FullNameNV == ""||!PhiCongChung'>Lưu</button>
                     </div>
                 </div>
             </div>
@@ -377,6 +399,18 @@
 <script>
     var myApp = angular.module('ccApp', []);
     myApp.controller('ccCtrl', function ($scope, $q, $http, $timeout, $location) {
+        //$scope.lstPage = [];    // Hiển thị số trang
+        //$scope.pageCount = 0;   // Tổng số trang
+        $scope.pageSize = 5;   // Số bản ghi hiển thị đặt mặc định = 10. pageSize = total / pageCount
+        $scope.pageIndex = 0;
+        $scope.row = 0;
+
+        $scope.list = [];
+        $scope.currentPage = 1;
+        $scope.totalPage = 0;
+        $scope.startPage = 1;
+        $scope.endPage = 5;
+
         $scope.IDCongChung = 0;
         $scope.ContentCongChung = "";
         $scope.IDType = 0;
@@ -406,7 +440,23 @@
         $scope.FullNameNV = "";
         $scope.NgayTao = "";
 
-        $scope.count = 3;
+        //Biến dùng để search
+        $scope.SNgayStart = "";
+        $scope.SNgayStop = "";
+        $scope.SPhiCongChung = 0;
+        $scope.SPhiHoaHong = 0;
+        $scope.SInforA = "";
+        $scope.SInforB = "";
+        $scope.SNameType = "";
+        $scope.SFullNameNV = "";
+        $scope.SFullNameCCV = "";
+        $scope.STenKhachHang = "";
+        $scope.SContentCongChung = "";
+        $scope.SIDType = 0;
+        $scope.SIDKhachHang = 0;
+        $scope.SIDCongChungVien = 0;
+        $scope.SID = 0;
+
 
         //var queryString = function (name, url) {
         //    if (!url) url = location.href;
@@ -431,13 +481,14 @@
             $scope.PhiHoaHong = 0;
             $scope.IDKhachHang = 0;
             $scope.IDCongChungVien = 0;
-            $scope.ID = 0;
+            $scope.IDNhanVien = 0;
             $scope.CongChung = {};
+            $scope.ID = 0;
 
             $scope.NameType = "";
             $scope.TenKhachHang = "";
             $scope.FullNameCCV = "";
-            $scope.FullName = "";
+            $scope.FullNameNV = "";
             $scope.NgayTao = "";
 
             $scope.list_CongChung = [];
@@ -491,15 +542,15 @@
         }
 
         //Hàm lấy công chứng mới nhất
-        var getCongChung = function () {
-            return $http({
-                method: "GET",
-                url: "/Home/Get_CongChungNew",
-                params: {
-                    count: $scope.count,
-                }
-            })
-        }
+        //var getCongChung = function () {
+        //    return $http({
+        //        method: "GET",
+        //        url: "/Home/Get_CongChungNew",
+        //        params: {
+        //            count: $scope.count,
+        //        }
+        //    })
+        //}
 
         //Hàm lấy list nhân viên
         var getNhanVien = function () {
@@ -518,19 +569,43 @@
         var getcc = function () {
             return $http({
                 method: "GET",
-                url: "/Home/Get_CongChung",
+                url: "/Home/Get_CongChungAll",
                 params: {
-                    NgayStart: $scope.NgayStart,
-                    NgayStop: $scope.NgayStop,
-                    strInforA: $scope.InforA,
-                    strInforB: $scope.InforB,
-                    IDType: $scope.IDType,
-                    strContent: $scope.ContentCongChung,
-                    PhiCongChung: $scope.PhiCongChung,
-                    PhiHoaHong: $scope.PhiHoaHong,
-                    IDKhachHang: $scope.IDKhachHang,
-                    IDCongChungVien: $scope.IDCongChungVien,
-                    IDNhanVien: $scope.ID
+                    pageIndex: $scope.currentPage,
+                    pageSize: $scope.pageSize,
+                    NgayStart: $scope.SNgayStart,
+                    NgayStop: $scope.SNgayStop,
+                    strInforA: $scope.SInforA,
+                    strInforB: $scope.SInforB,
+                    IDType: $scope.SIDType,
+                    strContent: $scope.SContentCongChung,
+                    PhiCongChung: $scope.SPhiCongChung,
+                    PhiHoaHong: $scope.SPhiHoaHong,
+                    IDKhachHang: $scope.SIDKhachHang,
+                    IDCongChungVien: $scope.SIDCongChungVien,
+                    IDNhanVien: $scope.SID
+                }
+            });
+        }
+
+        var sgetcc = function () {
+            return $http({
+                method: "GET",
+                url: "/Home/Get_CongChungAll",
+                params: {
+                    pageIndex: $scope.currentPage,
+                    pageSize: $scope.pageSize,
+                    NgayStart: $scope.SNgayStart,
+                    NgayStop: $scope.SNgayStop,
+                    strInforA: $scope.SInforA,
+                    strInforB: $scope.SInforB,
+                    IDType: $scope.SIDType,
+                    strContent: $scope.SContentCongChung,
+                    PhiCongChung: $scope.SPhiCongChung,
+                    PhiHoaHong: $scope.SPhiHoaHong,
+                    IDKhachHang: $scope.SIDKhachHang,
+                    IDCongChungVien: $scope.SIDCongChungVien,
+                    IDNhanVien: $scope.SID
                 }
             });
         }
@@ -552,98 +627,111 @@
             getNhanVien().then(function (res) {                     // Lấy list nhân viên
                 $scope.list_NhanVien = res.data;
             })
-            getCongChung().then(function (res) {
+            getcc().then(function (res) {
                 angular.forEach(res.data, function (item) {
                     item.NgayTao = parseDate(item.NgayTao);
                 });
-                $scope.list_CongChung = res.data;
-                //console.log($scope.list_CongChung);
+                //console.log(res.data.length);
+                if (res.data.length != 0) {
+                    $scope.list_CongChung = res.data;
+                    //console.log($scope.list_CongChung);
+                    $scope.row = $scope.list_CongChung[0].TotalRow;
+                    $scope.totalPage = Math.ceil($scope.row / $scope.pageSize);
+                    if ($scope.totalPage < $scope.endPage) {
+                        $scope.endPage = $scope.totalPage;
+                        for (i = $scope.startPage; i <= $scope.endPage; i++) {
+                            $scope.list.push(i);
+                        }
+                    }
+                    else {
+                        for (i = $scope.startPage; i <= $scope.endPage; i++) {
+                            $scope.list.push(i);
+                        }
+                    }
+                }
+                //console.log('row:', $scope.row, 'totalPage:', $scope.totalPage, 'start:', $scope.startPage, 'end:', $scope.endPage);
+            })
+        }
+
+        var init1 = function () {
+            getcc().then(function (res) {
+                angular.forEach(res.data, function (item) {
+                    item.NgayTao = parseDate(item.NgayTao);
+                });
+                //console.log(res.data.length);
+                if (res.data.length != 0) {
+                    $scope.list_CongChung = res.data;
+                    $scope.row = $scope.list_CongChung[0].TotalRow;
+                    $scope.totalPage = Math.ceil($scope.row / $scope.pageSize);
+                    if ($scope.totalPage < $scope.endPage) {
+                        $scope.endPage = $scope.totalPage;
+                        for (i = $scope.startPage; i <= $scope.endPage; i++) {
+                            $scope.list.push(i);
+                        }
+                    }
+                    else {
+                        for (i = $scope.startPage; i <= $scope.endPage; i++) {
+                            $scope.list.push(i);
+                        }
+                    }
+                }
+                //console.log('row:', $scope.row, 'totalPage:', $scope.totalPage, 'start:', $scope.startPage, 'end:', $scope.endPage);
             })
         }
 
         init();
 
         // Lấy tên loại công chứng theo id công chứng
+        $scope.SgetLcc = function (obj) {
+            $scope.SNameType = obj.NameType;
+            $scope.SIDType = obj.IDType;
+        }
+
         $scope.getLcc = function (obj) {
             $scope.NameType = obj.NameType;
             $scope.IDType = obj.IDType;
         }
 
         // Lấy tên khách hàng theo id
+        $scope.SgetKh = function (obj) {
+            $scope.STenKhachHang = obj.TenKhachHang;
+            $scope.SIDKhachHang = obj.IDKhachHang;
+        }
+
         $scope.getKh = function (obj) {
             $scope.TenKhachHang = obj.TenKhachHang;
             $scope.IDKhachHang = obj.IDKhachHang;
         }
 
         // Lấy tên công chứng viên theo ID
+        $scope.SgetCcv = function (obj) {
+            $scope.SFullNameCCV = obj.FullNameCCV;
+            $scope.SIDCongChungVien = obj.IDCongChungVien;
+        }
+
         $scope.getCcv = function (obj) {
             $scope.FullNameCCV = obj.FullNameCCV;
             $scope.IDCongChungVien = obj.IDCongChungVien;
         }
 
         // Lấy tên nhân viên theo id
+        $scope.SgetNv = function (obj) {
+            $scope.SFullNameNV = obj.FullName;
+            $scope.SID = obj.ID;
+        }
+
         $scope.getNv = function (obj) {
             $scope.FullNameNV = obj.FullName;
             $scope.ID = obj.ID;
         }
 
-        //$scope.AddCC = function () {
-        //    $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
-        //    $scope.CongChung.IDType = $scope.IDType;
-        //    $scope.CongChung.InforA = $scope.InforA;
-        //    $scope.CongChung.InforB = $scope.InforB;
-        //    $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
-        //    $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
-        //    $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
-        //    $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
-        //    $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
-        //    $scope.CongChung.NgayTao = $scope.NgayTao;
-        //    //console.log($scope.CongChung);
-        //    $http({                                 // Thêm nhân viên
-        //        method: "post",
-        //        url: "/Home/Insert_CongChung",
-        //        datatype: "json",
-        //        data: JSON.stringify($scope.CongChung),
-        //    }).then(function (res) {
-        //        $('#myModal').modal('hide');
-        //        //alert(res.data);
-        //        alert("Tạo mới thành công!");
-        //        clearData();
-        //        init();
-        //    })
-        //}
-
-        //$scope.EditCC = function () {
-        //    $scope.CongChung.IDCongChung = $scope.IDCongChung;
-        //    $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
-        //    $scope.CongChung.IDType = $scope.IDType;
-        //    $scope.CongChung.InforA = $scope.InforA;
-        //    $scope.CongChung.InforB = $scope.InforB;
-        //    $scope.CongChung.PhiCongChung = $scope.PhiCongChung;
-        //    $scope.CongChung.PhiHoaHong = $scope.PhiHoaHong;
-        //    $scope.CongChung.IDKhachHang = $scope.IDKhachHang;
-        //    $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
-        //    $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
-        //    $scope.CongChung.NgayTao = $scope.NgayTao;
-        //    $http({                                 // Thêm nhân viên
-        //        method: "post",
-        //        url: "/Home/Update_CongChung",
-        //        datatype: "json",
-        //        data: JSON.stringify($scope.CongChung),
-        //    }).then(function (res) {
-        //        $('#myModal').modal('hide');
-        //        //alert(res.data);
-        //        alert("Tạo mới thành công!");
-        //        //$scope.isAdd = false;
-        //        //clearData();
-        //        init();
-        //    })
-        //}
-
         $scope.reload = function () {
-            clearData();
-            init();
-            //$scope.PhongBan = {};
+            //clearData();
+            $scope.list = [];
+            $scope.startPage = 1;
+            $scope.endPage = 5;
+            $scope.currentPage = 1;
+            init1();
         }
 
         $scope.show = function (obj) {
@@ -664,7 +752,7 @@
                 $scope.ID = obj.IDNhanVien;
                 $scope.FullNameNV = obj.FullName;
                 $scope.NgayTao = obj.NgayTao;
-                console.log(obj);
+                //console.log(obj);
             }
             else {
                 $scope.IDCongChung = 0;
@@ -682,6 +770,7 @@
                 $scope.ID= 0;
                 $scope.FullNameNV = "";
                 $scope.NgayTao = "";
+                //console.log(obj);
             }
         }
 
@@ -705,10 +794,14 @@
                     data: JSON.stringify($scope.CongChung),
                 }).then(function (res) {
                     $('#myModal').modal('hide');
-                    //alert(res.data);
-                    alert("Tạo mới thành công!");
+                    alert(res.data);
                     clearData();
-                    init();
+                    $scope.list = [];
+                    $scope.startPage = 1;
+                    $scope.endPage = 5;
+                    $scope.currentPage = 1;
+                    init1();
+                    
                 })
             }
             else {
@@ -723,7 +816,7 @@
                     $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
                     $scope.CongChung.IDNhanVien= $scope.ID;
                     $scope.CongChung.NgayTao = $scope.NgayTao;
-                    console.log($scope.CongChung);
+                    //console.log($scope.CongChung);
                     $http({                                 
                         method: "post",
                         url: "/Home/Update_CongChung",
@@ -731,17 +824,22 @@
                         data: JSON.stringify($scope.CongChung),
                     }).then(function (res) {
                         $('#myModal').modal('hide');
-                        //alert(res.data);
-                        alert("Cập nhật thành công!");
+                        alert(res.data);
                         //$scope.isAdd = false;
                         clearData();
-                        init();
+                        //reload();
+                        $scope.list = [];
+                        $scope.startPage = 1;
+                        $scope.endPage = 5;
+                        $scope.currentPage = 1;
+                        init1();
+                        
                     })
             }
         }
 
         $scope.Delete_CongChung = function () {
-            console.log("Thực hiện xóa");
+            //console.log("Thực hiện xóa");
             $scope.CongChung.IDCongChung = $scope.IDCongChung;
             $scope.CongChung.ContentCongChung = $scope.ContentCongChung;
             $scope.CongChung.IDType = $scope.IDType;
@@ -753,7 +851,7 @@
             $scope.CongChung.IDCongChungVien = $scope.IDCongChungVien;
             $scope.CongChung.IDNhanVien = $scope.IDNhanVien;
             $scope.CongChung.NgayTao = $scope.NgayTao;
-            console.log($scope.CongChung);
+            //console.log($scope.CongChung);
             $http({
                 method: "post",
                 url: "/Home/Delete_CongChung",
@@ -761,21 +859,119 @@
                 data: JSON.stringify($scope.CongChung),
             }).then(function (res) {
                 $('#confirm-delete').modal('hide');
-                alert("Xóa thành thành công!");
+                alert(res.data);
                 clearData();
-                init();
+                $scope.list = [];
+                $scope.startPage = 1;
+                $scope.endPage = 5;
+                $scope.currentPage = 1;
+                init1();
             })
         }
 
+        $scope.XoaSearch = function () {
+            $scope.SNgayStart = "";
+            $scope.SNgayStop = "";
+            $scope.SPhiCongChung = 0;
+            $scope.SPhiHoaHong = 0;
+            $scope.SInforA = "";
+            $scope.SInforB = "";
+            $scope.SNameType = "";
+            $scope.SFullNameNV = "";
+            $scope.SFullNameCCV = "";
+            $scope.STenKhachHang = "";
+            $scope.SContentCongChung = "";
+            $scope.SIDType = 0;
+            $scope.SIDKhachHang = 0;
+            $scope.SIDCongChungVien = 0;
+            $scope.SID = 0;
+        }
+
         $scope.KetQua = function () {
+            $scope.list = [];
+            $scope.startPage = 1;
+            $scope.endPage = 5;
+            $scope.currentPage = 1;
+            sgetcc().then(function (res) {
+                angular.forEach(res.data, function (item) {
+                    item.NgayTao = parseDate(item.NgayTao);
+                });
+                //console.log(res.data.length);
+                if (res.data.length != 0) {
+                    $scope.list_CongChung = res.data;
+                    $scope.row = $scope.list_CongChung[0].TotalRow;
+                    $scope.totalPage = Math.ceil($scope.row / $scope.pageSize);
+                    if ($scope.totalPage < $scope.endPage) {
+                        $scope.endPage = $scope.totalPage;
+                        for (i = $scope.startPage; i <= $scope.endPage; i++) {
+                            $scope.list.push(i);
+                        }
+                    }
+                    else {
+                        for (i = $scope.startPage; i <= $scope.endPage; i++) {
+                            $scope.list.push(i);
+                        }
+                    }
+                }
+                //console.log('row:', $scope.row, 'totalPage:', $scope.totalPage, 'start:', $scope.startPage, 'end:', $scope.endPage);
+            });
+        }
+
+        $scope.setPage = function (page) {
+            if (page === $scope.endPage && page !== $scope.totalPage) {
+                $scope.startPage = page - 1;
+                
+                $scope.endPage = $scope.startPage + 4;
+                if ($scope.endPage > $scope.totalPage) {
+                    $scope.endPage = $scope.totalPage;
+                }
+                $scope.list = [];
+                for (var i = $scope.startPage; i <= $scope.endPage; i++) {
+                    $scope.list.push(i);
+                }
+            }
+            if (page === $scope.startPage && page !== 1) {
+                $scope.endPage = page + 1;
+                $scope.startPage = $scope.endPage - 4;
+                $scope.list = [];
+                for (var i = $scope.startPage; i <= $scope.endPage; i++) {
+                    $scope.list.push(i);
+                }
+            }
+            if (page === $scope.totalPage) {
+                $scope.startPage = $scope.totalPage - 4 + 1;
+                if ($scope.startPage <= 0) {
+                    $scope.startPage = 1;
+                }
+                $scope.endPage = $scope.totalPage;
+                $scope.list = [];
+                for (var i = $scope.startPage; i <= $scope.endPage; i++) {
+                    $scope.list.push(i);
+                }
+            }
+            if (page === 1) {
+                $scope.startPage = 1;
+                if ($scope.endPage > 5) {
+                    $scope.endPage = 5;
+                }
+                
+                $scope.list = [];
+                for (var i = $scope.startPage; i <= $scope.endPage; i++) {
+                    $scope.list.push(i);
+                }
+            }
+            $scope.currentPage = page;
+            $scope.pageIndex = page - 1;
             getcc().then(function (res) {
                 angular.forEach(res.data, function (item) {
                     item.NgayTao = parseDate(item.NgayTao);
                 });
-                $scope.list_CongChung = res.data;
-                console.log(res.data);
-                //clearData();
+                if (res.data.length != 0) {
+                    $scope.list_CongChung = res.data;
+                    $scope.row = $scope.list_CongChung[0].TotalRow;
+                }
             });
+            console.log('star:', $scope.startPage, 'current:', $scope.currentPage, 'end:', $scope.endPage);
         }
 
     })

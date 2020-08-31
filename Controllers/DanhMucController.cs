@@ -77,11 +77,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 nv.Role = model.Role;
                 _contextAcc.Insert(nv);
                 _contextAcc.Save();
-                return "Successfully";
+                return "Thêm thành công";
             }
             else
             {
-                return "Not Inserted";
+                return "Thêm thất bại";
             }
         }
         public string Update_AccNhanVien(AccountNhanVien model)
@@ -98,11 +98,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 nv.Role = model.Role;
                 _contextAcc.Update(nv);
                 _contextAcc.Save();
-                return "Successfully";
+                return "Sửa thành công";
             }
             else
             {
-                return "Not edit";
+                return "Sửa thất bại";
             }
         }
         public string Delete_AccNhanVien(AccountNhanVien model)
@@ -113,11 +113,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 int x = model.ID;
                 _contextAcc.Delete(x);
                 _contextAcc.Save();
-                return "Successfully";
+                return "Xóa thành công";
             }
             else
             {
-                return "Not delete";
+                return "Xóa thất bại";
             }
         }
 
@@ -194,9 +194,14 @@ namespace QuanLyHoSoCongChung.Controllers
 
         public ActionResult KhachHang()
         {
+            //var session = Session["UserID"];
+            //var name = Session["UserName"];
+            //ViewBag.User = name;
             var session = Session["UserID"];
+            var role = Session["Role"];
             var name = Session["UserName"];
             ViewBag.User = name;
+            ViewBag.Role = role;
             return View();
         }
 
@@ -211,20 +216,20 @@ namespace QuanLyHoSoCongChung.Controllers
             _contextKH = new GenericRepository<KhachHang>();
             if (model != null)
             {
+                //if (model.)
                 KhachHang kh = new KhachHang();
                 kh.TenKhachHang = model.TenKhachHang;
                 kh.CoQuan = model.CoQuan;
                 kh.SoDienThoai = model.SoDienThoai;
                 _contextKH.Insert(kh);
                 _contextKH.Save();
-                return "Successfully";
+                return "Thêm mới thành công";
             }
             else
             {
-                return "Not Inserted";
+                return "Thêm mới thất bại";
             }
         }
-
         public string Update_KhachHang(KhachHang model)
         {
             _contextKH = new GenericRepository<KhachHang>();
@@ -237,11 +242,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 kh.SoDienThoai = model.SoDienThoai;
                 _contextKH.Update(kh);
                 _contextKH.Save();
-                return "Successfully";
+                return "Sửa thành công";
             }
             else
             {
-                return "Not edit";
+                return "Sửa thất bại";
             }
         }
         public string Delete_KhachHang(KhachHang model)
@@ -252,19 +257,24 @@ namespace QuanLyHoSoCongChung.Controllers
                 int x = model.IDKhachHang;
                 _contextKH.Delete(x);
                 _contextKH.Save();
-                return "Successfully";
+                return "Xóa thành công";
             }
             else
             {
-                return "Not delete";
+                return "Xóa thất bại";
             }
         }
 
         public ActionResult CongChungVien()
         {
+            //var session = Session["UserID"];
+            //var name = Session["UserName"];
+            //ViewBag.User = name;
             var session = Session["UserID"];
+            var role = Session["Role"];
             var name = Session["UserName"];
             ViewBag.User = name;
+            ViewBag.Role = role;
             return View();
         }
 
@@ -284,11 +294,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 ccv.SoDienThoai = model.SoDienThoai;
                 _contextCCV.Insert(ccv);
                 _contextCCV.Save();
-                return "Successfully";
+                return "Thêm mới thành công";
             }
             else
             {
-                return "Not Inserted";
+                return "Thêm mới thất bại";
             }
         }
 
@@ -303,11 +313,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 ccv.SoDienThoai = model.SoDienThoai;
                 _contextCCV.Update(ccv);
                 _contextCCV.Save();
-                return "Successfully";
+                return "Sửa thành công";
             }
             else
             {
-                return "Not edit";
+                return "Sửa thất bại";
             }
         }
         public string Delete_CongChungVien(CongChungVien model)
@@ -318,19 +328,24 @@ namespace QuanLyHoSoCongChung.Controllers
                 int x = model.IDCongChungVien;
                 _contextCCV.Delete(x);
                 _contextCCV.Save();
-                return "Successfully";
+                return "Xóa thành công";
             }
             else
             {
-                return "Not delete";
+                return "Xóa thất bại";
             }
         }
 
         public ActionResult LoaiCongChung()
         {
+            //var session = Session["UserID"];
+            //var name = Session["UserName"];
+            //ViewBag.User = name;
             var session = Session["UserID"];
+            var role = Session["Role"];
             var name = Session["UserName"];
             ViewBag.User = name;
+            ViewBag.Role = role;
             return View();
         }
 
@@ -350,11 +365,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 lcc.NameType = model.NameType;
                 _contextLCC.Insert(lcc);
                 _contextLCC.Save();
-                return "Successfully";
+                return "Thêm thành công";
             }
             else
             {
-                return "Not Inserted";
+                return "Thêm thất bại";
             }
         }
 
@@ -369,11 +384,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 lcc.NameType = model.NameType;
                 _contextLCC.Update(lcc);
                 _contextLCC.Save();
-                return "Successfully";
+                return "Sửa thành công";
             }
             else
             {
-                return "Not edit";
+                return "Sửa thất bại";
             }
         }
 
@@ -385,11 +400,11 @@ namespace QuanLyHoSoCongChung.Controllers
                 int x = model.IDType;
                 _contextLCC.Delete(x);
                 _contextLCC.Save();
-                return "Successfully";
+                return "Xóa thành công";
             }
             else
             {
-                return "Not delete";
+                return "Xóa thất bại";
             }
         }
     }

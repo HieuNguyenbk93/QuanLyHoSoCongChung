@@ -219,6 +219,9 @@
     <Content Include="Asses\css\responsiveslides.css" />
     <Content Include="Asses\css\style.css" />
     <Content Include="Asses\css\timeline.css" />
+    <Content Include="Asses\datapicker\bootstrap-datepicker.min.js" />
+    <Content Include="Asses\datapicker\bootstrap-timepicker.min.js" />
+    <Content Include="Asses\datapicker\datepicker.min.css" />
     <Content Include="Asses\fonts\Flaticon.svg" />
     <Content Include="Asses\fonts\fontawesome-webfont.svg" />
     <Content Include="Asses\images\footer_logo.png" />

@@ -12,7 +12,10 @@
             <div class="col">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend" id="button-addon3">
+                        @if (ViewBag.Role == 1)
+                        {
                         <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#myModal" ng-click="show('')">Thêm mới</button>
+                        }
                         <button class="btn btn-outline-secondary" type="button" ng-click="reload()">Tìm kiếm</button>
                     </div>
                     <input type="text" class="form-control" ng-model="strTen" placeholder="" aria-label="Example text with two button addons" aria-describedby="button-addon3">
@@ -26,7 +29,11 @@
                     <th scope="col">STT</th>
                     <th scope="col">Tên công chứng viên</th>
                     <th scope="col">Số điện thoại</th>
+                    @if (ViewBag.Role == 1)
+                    {
                     <th scope="col">Thao tác</th>
+                    }
+
                 </tr>
             </thead>
             <tbody>
@@ -34,10 +41,14 @@
                     <th scope="row">{{$index+1}}</th>
                     <td>{{item.FullNameCCV}}</td>
                     <td>{{item.SoDienThoai}}</td>
+                    @if (ViewBag.Role == 1)
+                    {
                     <td>
                         <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success" ng-click="show(item);">Sửa</button>
                         <button type="button" data-toggle="modal" data-target="#confirm-delete" ng-click="getID(item);" class="btn btn-outline-danger">Xóa</button>
                     </td>
+                    }
+                    
                 </tr>
             </tbody>
         </table>
@@ -55,12 +66,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="profile-info-row">
-                        <div class="profile-info-name">Tên công chứng viên<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-name">Tên công chứng viên:</div>
                         <div class="profile-info-value">
                             <input type="text" class="form-control input-sm" id="Ten" ng-model="Ten_CongChungVien" tabindex="2">
-                            <label class="help-block" id="lblTen" style="display: none"></label>
+                            <lable class="label-danger" ng-show='Ten_CongChungVien == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                         </div>
-                        <div class="profile-info-name">Số điện thoại công chứng viên<i style="color: red">(*)</i>:</div>
+                        <div class="profile-info-name">Số điện thoại công chứng viên:</div>
                         <div class="profile-info-value">
                             <input type="text" class="form-control input-sm" id="Sdt" ng-model="Sdt_CongChungVien" tabindex="2">
                             <label class="help-block" id="lblSdt" style="display: none"></label>
@@ -70,7 +81,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="Save_CongChungVien()">Lưu</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_CongChungVien()" ng-disabled='Ten_CongChungVien == ""'>Lưu</button>
                 </div>
             </div>
         </div>
@@ -192,8 +203,7 @@
                         data: JSON.stringify($scope.CongChungVien),
                     }).then(function (res) {
                         $('#myModal').modal('hide');
-                        //alert(res.data);
-                        alert("Tạo mới thành công!");
+                        alert(res.data);
                         clearData();
                         init();
                     })
@@ -210,9 +220,8 @@
                         datatype: "json",
                         data: JSON.stringify($scope.CongChungVien),
                     }).then(function (res) {
-                        //console.log(res.data);
                         $('#myModal').modal('hide');
-                        alert("Sửa thành thành công!");
+                        alert(res.data);
                         clearData();
                         init();
                     })

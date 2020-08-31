@@ -43,5 +43,6 @@ namespace QuanLyHoSoCongChung.Models
         public int IDNhanVien { get; set; }
         public string FullName { get; set; }
         public DateTime NgayTao { get; set; }
+        public int TotalRow { get; set; }
     }
 }

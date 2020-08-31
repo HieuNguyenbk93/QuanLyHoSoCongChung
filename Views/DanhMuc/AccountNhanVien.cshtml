@@ -28,7 +28,7 @@
             <thead>
                 <tr>
                     <th scope="col">STT</th>
-                    <th scope="col">Email đăng ký</th>
+                    <th scope="col">Tên tài khoản</th>
                     <th scope="col">Tên nhân viên</th>
                     <th scope="col">Số điện thoại</th>
                     <th scope="col">Quyền</th>
@@ -74,26 +74,25 @@
                 <div class="modal-body">
                     <form name="myForm">
                         <div class="profile-info-row">
-                            <div class="profile-info-name">Email nhân viên<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-name">Tên tài khoản<i style="color: red">(*)</i>:</div>
                             <div class="profile-info-value">
-                                <input type="text" class="form-control input-sm" id="Email" ng-model="Email_NhanVien" tabindex="2">
-                                <lable class="label-danger" ng-show='Email == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
-                                <lable class="label-danger" ng-show='myForm.input.$error.email' style="color:red"><small>(*)Email không đúng định dạng</small></lable>
+                                <input type="text" name="email" class="form-control input-sm" id="Email" ng-model="Email_NhanVien" tabindex="2">
+                                <lable class="label-danger" ng-show='Email_NhanVien == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
+                                @*<lable class="label-danger" ng-show='myForm.email.$error.email' style="color:red"><small>(*)Email không đúng định dạng</small></lable>*@
                             </div>
                             <div class="profile-info-name">Password nhân viên<i style="color: red">(*)</i>:</div>
                             <div class="profile-info-value">
                                 <input type="password" class="form-control input-sm" id="Password" ng-model="Password_NhanVien" tabindex="2">
-                                @*<label class="help-block" id="lblTen" style="display: none"></label>*@
+                                <lable class="label-danger" ng-show='Password_NhanVien == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                             </div>
                             <div class="profile-info-name">Tên nhân viên<i style="color: red">(*)</i>:</div>
                             <div class="profile-info-value">
                                 <input type="text" class="form-control input-sm" id="Ten" ng-model="Ten_NhanVien" tabindex="2">
-                                @*<label class="help-block" id="lblTen" style="display: none"></label>*@
+                                <lable class="label-danger" ng-show='Ten_NhanVien == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                             </div>
-                            <div class="profile-info-name">Số điện thoại nhân viên<i style="color: red">(*)</i>:</div>
+                            <div class="profile-info-name">Số điện thoại nhân viên:</div>
                             <div class="profile-info-value">
                                 <input type="text" class="form-control input-sm" id="Sdt" ng-model="Sdt_NhanVien" tabindex="2">
-                                <label class="help-block" id="lblSdt" style="display: none"></label>
                             </div>
                             <div class="profile-info-name">Phân quyền<i style="color: red">(*)</i>:</div>
                             <div class="input-group">
@@ -109,8 +108,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" ng-click="Save_NhanVien()">Lưu</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-disabled="true">Close</button>
+                    <button type="button" class="btn btn-primary" ng-click="Save_NhanVien()" ng-disabled='Email_NhanVien == "" || Password_NhanVien == "" || Ten_NhanVien == ""'>Lưu</button>
                 </div>
             </div>
         </div>
@@ -239,6 +238,7 @@
                     $scope.Sdt_NhanVien = objPB.Phone;
                     $scope.IDRole = objPB.Role;
                     $scope.NameRole = objPB.NameRole;
+                    console.log(objPB);
                 }
                 else {
                     $scope.ID_NhanVien = 0;
@@ -248,8 +248,7 @@
                     $scope.Sdt_NhanVien = "";
                     $scope.IDRole = 2;
                 }
-                console.log($scope.ID_NhanVien);
-                console.log($scope.IDRole);
+                console.log($scope.Email_NhanVien);
             }
 
             $scope.Save_NhanVien = function () {
@@ -268,8 +267,7 @@
                         data: JSON.stringify($scope.NhanVien),
                     }).then(function (res) {
                         $('#myModal').modal('hide');
-                        //alert(res.data);
-                        alert("Tạo mới thành công!");
+                        alert(res.data);
                         clearData();
                         init();
                     })
@@ -283,6 +281,7 @@
                     $scope.NhanVien.FullName = $scope.Ten_NhanVien;
                     $scope.NhanVien.Phone = $scope.Sdt_NhanVien;
                     $scope.NhanVien.Role = $scope.IDRole;
+                    console.log($scope.Email_NhanVien);
                     console.log($scope.NhanVien);
                     $http({                                 // Sửa thông tin nhân viên
                         method: "post",
@@ -291,8 +290,8 @@
                         data: JSON.stringify($scope.NhanVien),
                     }).then(function (res) {
                         //console.log(res.data);
+                        alert(res.data);
                         $('#myModal').modal('hide');
-                        alert("Sửa thành thành công!");
                         clearData();
                         init();
                     })
@@ -316,7 +315,7 @@
                     data: JSON.stringify($scope.NhanVien),
                 }).then(function (res) {
                     $('#confirm-delete').modal('hide');
-                    alert("Xóa thành thành công!");
+                    alert(res.data);
                     clearData();
                     init();
                 })
