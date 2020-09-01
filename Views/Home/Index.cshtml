@@ -649,6 +649,9 @@
                         }
                     }
                 }
+                else {
+                    $scope.row = 0;
+                }
                 //console.log('row:', $scope.row, 'totalPage:', $scope.totalPage, 'start:', $scope.startPage, 'end:', $scope.endPage);
             })
         }
@@ -912,6 +915,9 @@
                             $scope.list.push(i);
                         }
                     }
+                }
+                else {
+                    $scope.row = 0;
                 }
                 //console.log('row:', $scope.row, 'totalPage:', $scope.totalPage, 'start:', $scope.startPage, 'end:', $scope.endPage);
             });
