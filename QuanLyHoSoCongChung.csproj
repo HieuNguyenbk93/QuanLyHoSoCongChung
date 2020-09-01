@@ -45,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Aspose.Cells, Version=4.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Aspose.Cells.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Syncfusion.Compression.Base, Version=16.4451.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
       <HintPath>packages\Syncfusion.Compression.Base.16.4.0.52\lib\net451\Syncfusion.Compression.Base.dll</HintPath>
@@ -267,6 +271,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Exports\GianDoWAN\gd1.xml" />
+    <Content Include="Exports\GianDoWAN\gd197.xml" />
+    <Content Include="Exports\GianDoWAN\gd198.xml" />
+    <Content Include="Exports\GianDoWAN\gd2.xml" />
+    <Content Include="Exports\GianDoWAN\gd3.xml" />
+    <Content Include="Exports\GianDoWAN\XMLTest.xml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -281,6 +291,7 @@
     <Content Include="Asses\fonts\fontawesome-webfont.woff" />
     <Content Include="Asses\fonts\fontawesome-webfont.woff2" />
     <Content Include="Asses\fonts\FontAwesome.otf" />
+    <Content Include="Exports\Templates\TemplateCC.xlsx" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -336,6 +347,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Exports\Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

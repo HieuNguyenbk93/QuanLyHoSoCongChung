@@ -157,7 +157,11 @@
             <div class="p-2 bd-highlight"><button type="button" class="btn btn-info" ng-click="KetQua()">Hiển thị kết quả</button></div>
             <div class="p-2 bd-highlight"><button type="button" class="btn btn-secondary" ng-click="TatKetQua()">Tắt kết quả</button></div>
             <div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="ExcelExport()">Xuất báo cáo</button></div>
-            @*<div class="p-2 bd-highlight"><button type="button" class="btn btn-primary" ng-click="CreateExcel()">Xuất thử báo cáo</button></div>*@
+            <div class="p-2 bd-highlight"><button type="button" class="btn btn-light" ng-click="CreateExcel()">Xuất báo cáo kiểu khác</button></div>
+            <iframe id="BC_Report1" style="display:none;"></iframe>
+            @*<div class="p-2 bd-highlight">
+                <a class="p-2 bd-highlight btn btn-dark" ng-href="/Home/CreateDocument">Xuất thử báo cáo</a>
+            </div>*@
         </div>
     </div>
     <hr />
@@ -200,26 +204,6 @@
 
 <script src="~/Asses/js/angular.min.js"></script>
 <script src="~/Asses/js/FileSaver.min.js"></script>
-
-<script src="~/Asses/datapicker/bootstrap-datepicker.min.js"></script>
-<script src="~/Asses/datapicker/bootstrap-timepicker.min.js"></script>
-<link href="~/Asses/datapicker/datepicker.min.css" rel="stylesheet" />
-<script>
-    $('.date-picker').datepicker({
-        autoclose: true,
-        todayHighlight: true,
-        format: "dd/mm/yyyy"
-    });
-    $('#DateOfBirth').datepicker();
-    $(function () {
-        $('#Mobile').on('keydown', function (e) {
-            -1 !== $.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) || /65|67|86|88/.test(e.keyCode)
-                && (!0 === e.ctrlKey || !0 === e.metaKey) || 35 <= e.keyCode
-                && 40 >= e.keyCode || (e.shiftKey || 48 > e.keyCode || 57 < e.keyCode) && (96 > e.keyCode || 105 < e.keyCode)
-                && e.preventDefault();
-        });
-    });
-</script>
 
 <script>
     var myApp = angular.module('bcApp', []);
@@ -289,6 +273,35 @@
                     IDNhanVien: $scope.IDNhanVien
                 }
             });
+        }
+
+        var getExcel = function () {
+            return $http({
+                method: "GET",
+                url: "/Home/CreateDocument",
+                params: {
+                    NgayStart: $scope.NgayStart,
+                    NgayStop: $scope.NgayStop,
+                    strInforA: $scope.InforA,
+                    strInforB: $scope.InforB,
+                    IDType: $scope.IDType,
+                    strContent: $scope.ContentCongChung,
+                    PhiCongChung: $scope.PhiCongChung,
+                    PhiHoaHong: $scope.PhiHoaHong,
+                    IDKhachHang: $scope.IDKhachHang,
+                    IDCongChungVien: $scope.IDCongChungVien,
+                    IDNhanVien: $scope.IDNhanVien,
+                    isInforA: $scope.isInforA,
+                    isInforB: $scope.isInforB,
+                    isContentCongChung: $scope.isContentCongChung,
+                    isPhiCongChung: $scope.isPhiCongChung,
+                    isPhiHoaHong: $scope.isPhiHoaHong,
+                    isIDType: $scope.isIDType,
+                    isIDNhanVien: $scope.isIDNhanVien,
+                    isIDCongChungVien: $scope.isIDCongChungVien,
+                    isIDKhachHang: $scope.isIDKhachHang
+                }
+            })
         }
 
         var clearData = function () {
@@ -379,14 +392,11 @@
         $scope.getLcc = function (obj) {
             $scope.NameType = obj.NameType;
             $scope.IDType = obj.IDType;
-            //console.log(obj);
         }
 
         $scope.getKh = function (obj) {
             $scope.TenKhachHang = obj.TenKhachHang;
             $scope.IDKhachHang = obj.IDKhachHang;
-            //console.log(obj);
-            //console.log($scope.TenKhachHang);
         }
 
         $scope.getCcv = function (obj) {
@@ -399,6 +409,7 @@
             $scope.IDNhanVien = obj.ID;
         }
 
+        // Tích vào tất cả các ô
         $scope.SelectAll = function () {
             $scope.isNgayStart = true;
             $scope.isNgayStop = true;
@@ -413,6 +424,7 @@
             $scope.isIDCongChungVien = true;
         }
 
+        //Hàm xuất cả bảng
         $scope.ExcelExport = function () {
             //console.log("Excel Export");
             var blob = new Blob([document.getElementById('MyTable').innerHTML], {
@@ -421,23 +433,58 @@
             saveAs(blob, "MyTable.xls");
         }
 
-        //$scope.CreateExcel = function () {
-        //    return $http({
-        //        method: "GET",
-        //        url: "/DanhMuc/Get_NhanVien",
-        //        params: {
-        //            pageSize: 1000,
-        //            pageIndex: 1,
-        //            strTen: $scope.strTenNv
-        //        }
-        //    }).
-        //}
+        //Hàm chọn cột để xuất
+        $scope.CreateExcel = function () {
+            if (!$scope.isNgayStart) {
+                $scope.NgayStart = "";
+            }
+            if (!$scope.isNgayStop) {
+                $scope.NgayStop = "";
+            }
+            if (!$scope.isContentCongChung) {
+                $scope.ContentCongChung = "";
+            }
+            if (!$scope.isIDNhanVien) {
+                $scope.IDNhanVien = 0;
+            }
+            if (!$scope.isIDType) {
+                $scope.IDType = 0;
+            }
+            if (!$scope.isInforA) {
+                $scope.InforA = "";
+            }
+            if (!$scope.isInforB) {
+                $scope.InforB = "";
+            }
+            if (!$scope.isPhiCongChung) {
+                $scope.PhiCongChung = 0;
+            }
+            if (!$scope.isPhiHoaHong) {
+                $scope.PhiHoaHong = 0;
+            }
+            if (!$scope.isIDKhachHang) {
+                $scope.IDKhachHang = 0;
+            }
+            if (!$scope.isIDCongChungVien) {
+                $scope.IDCongChungVien = 0;
+            }
 
+            $timeout(function () {
+                getExcel().then(function (data) {
+                    debugger
+                    document.getElementById('BC_Report1').src = data.data;
+                });
+
+            }, 1000);
+        }
+
+        //Tắt bảng kết quả
         $scope.TatKetQua = function () {
             $scope.isKetQua = false;
             clearData();
         }
 
+        //Hiển thị kết quả
         $scope.KetQua = function () {
             $scope.isKetQua = true;
             if (!$scope.isNgayStart) {

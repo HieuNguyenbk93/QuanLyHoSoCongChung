@@ -1,0 +1,21 @@
+<mxGraphModel>
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="2" value="SWITCH" style="shape=triangle;perimeter=ellipsePerimeter;direction=north;" vertex="1" parent="1">
+      <mxGeometry x="140" y="90" width="120" height="40" as="geometry">
+        <mxRectangle width="120" height="40" as="alternateBounds" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="3" value="ROUTER" style="" vertex="1" parent="1">
+      <mxGeometry x="300" y="240" width="120" height="40" as="geometry">
+        <mxRectangle width="120" height="40" as="alternateBounds" />
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="4" value="MAN-E" style="shape=cloud;perimeter=ellipsePerimeter;" vertex="1" parent="1">
+      <mxGeometry x="430" y="110" width="120" height="40" as="geometry">
+        <mxRectangle width="120" height="40" as="alternateBounds" />
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>

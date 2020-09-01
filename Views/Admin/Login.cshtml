@@ -22,13 +22,13 @@
                     <form name="myForm">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Địa chỉ Email</label>
-                            <input type="text" class="form-control" placeholder="Enter email" name="input" ng-model="Email">
+                            <input autofocus type="text" class="form-control" placeholder="Enter email" name="input" ng-model="Email">
                             <lable class="label-danger" ng-show='Email == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                             @*<lable class="label-danger" ng-show='myForm.input.$error.email' style="color:red"><small>(*)Email không đúng định dạng</small></lable>*@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Password" ng-model="Password">
+                            <input ng-keyup="nhap()" type="password" class="form-control" placeholder="Password" ng-model="Password">
                             <lable class="label-danger" ng-show='Password == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                         </div>
                         @*<div class="form-group form-check">
@@ -72,9 +72,6 @@
             }).then(function (res) {
                 $('#myModal').modal('hide');
                 alert(res.data);
-                //var url = "http://" + $window.location.host + "/DanhMuc/NhanVien";
-                //$log.log(url);
-                //$window.location.href = url;
                 if (res.data == "Đăng nhập thành công") {
                     window.location.href = '/Home/Index';
                 }
@@ -84,6 +81,40 @@
                 //clearData();
                 //init();
             })
+        }
+
+        $scope.nhap = function () {
+            if (event.keyCode == 13) {
+                if ($scope.Email == null || $scope.Password == null || $scope.Email == "" || $scope.Password == "") {
+                    alert("Nhập thiếu thông tin");
+                }
+                else {
+                    $scope.NhanVien.Email = $scope.Email;
+                    $scope.NhanVien.Password = $scope.Password;
+                    $scope.NhanVien.Remember = $scope.Remember;
+                    console.log($scope.Remember);
+                    $http({
+                        method: "get",
+                        url: "/Admin/CheckLogin",
+                        params: {
+                            email: $scope.Email,
+                            password: $scope.Password,
+                            remember: $scope.Remember
+                        }
+                    }).then(function (res) {
+                        $('#myModal').modal('hide');
+                        alert(res.data);
+                        if (res.data == "Đăng nhập thành công") {
+                            window.location.href = '/Home/Index';
+                        }
+
+                        //alert("Cập nhật thành công!");
+                        //$scope.isAdd = false;
+                        //clearData();
+                        //init();
+                    })
+                }
+            }
         }
     })
 </script>
