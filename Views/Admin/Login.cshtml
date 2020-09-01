@@ -21,8 +21,8 @@
                     <h5 style="text-align:center">Đăng nhập</h5>
                     <form name="myForm">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Địa chỉ Email</label>
-                            <input autofocus type="text" class="form-control" placeholder="Enter email" name="input" ng-model="Email">
+                            <label for="exampleInputEmail1">Tài khoản người dùng</label>
+                            <input autofocus type="text" class="form-control" placeholder="Nhập tài khoản" name="input" ng-model="Email">
                             <lable class="label-danger" ng-show='Email == ""' style="color:red"><small>(*)Trường bắt buộc</small></lable>
                             @*<lable class="label-danger" ng-show='myForm.input.$error.email' style="color:red"><small>(*)Email không đúng định dạng</small></lable>*@
                         </div>
@@ -103,9 +103,12 @@
                         }
                     }).then(function (res) {
                         $('#myModal').modal('hide');
-                        alert(res.data);
+                        
                         if (res.data == "Đăng nhập thành công") {
                             window.location.href = '/Home/Index';
+                        }
+                        else {
+                            alert(res.data);
                         }
 
                         //alert("Cập nhật thành công!");
